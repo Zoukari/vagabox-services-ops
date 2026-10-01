@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { -webkit-tap-highlight-color: transparent; }
+select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230E1A2B' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; }
+.tbl { @apply w-full text-left text-sm; }
+.tbl th { @apply whitespace-nowrap border-b border-black/10 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-ink/50; }
+.tbl td { @apply border-b border-black/5 px-3 py-2.5 align-middle; }
+.tbl tbody tr:hover { @apply bg-black/[0.02]; }

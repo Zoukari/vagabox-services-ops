@@ -1,0 +1,9 @@
+{
+  "name": "VS Go — Vagabox Services",
+  "short_name": "VS Go",
+  "start_url": "/go",
+  "display": "standalone",
+  "background_color": "#0E1A2B",
+  "theme_color": "#0E1A2B",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
