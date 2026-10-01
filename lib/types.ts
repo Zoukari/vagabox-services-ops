@@ -3,8 +3,8 @@ import { Statut } from "./constants";
 export interface Compagnie { id: string; nom: string; code: string | null; contact_nom: string | null; contact_email: string | null; contact_telephone: string | null; created_at: string }
 export interface Livreur { id: string; nom: string; telephone: string | null; auth_user_id: string | null; actif: boolean; created_at: string }
 export interface Client { id: string; nom: string; prenom: string | null; telephone: string; quartier: string | null; adresse_detail: string | null; created_at: string }
-export interface Tarif { id: string; compagnie_id: string; type: "par_dossier" | "forfait_mensuel"; prix_fdj: number; actif: boolean; date_debut: string }
-export interface Compta { id: string; date: string; total_dossiers: number; total_fdj: number; notes: string | null; photo_facture_url: string | null; created_at: string }
+export interface Tarif { id: string; compagnie_id: string; type: "par_dossier" | "forfait_mensuel"; prix_fdj: number; actif: boolean; date_debut: string; repartition?: "zero" | "reparti" }
+export interface Compta { id: string; date: string; total_dossiers: number; total_fdj: number; notes: string | null; photo_facture_url: string | null; created_at: string; total_dossiers_systeme?: number | null; total_fdj_systeme?: number | null; source?: "auto" | "manuel" }
 
 export interface DossierVue {
   id: string; numero_dossier: string; tag_iata: string | null;

@@ -73,7 +73,7 @@ export default function CompagnieDetail() {
               <thead><tr><th>Type</th><th>Prix</th><th>Depuis</th><th>Actif</th></tr></thead>
               <tbody>{tarifs.map((t) => (
                 <tr key={t.id} className={t.actif ? "" : "opacity-50"}>
-                  <td>{t.type === "par_dossier" ? "Par dossier" : "Forfait mensuel"}</td>
+                  <td>{t.type === "par_dossier" ? "Par dossier" : <>Forfait mensuel<div className="text-xs text-ink/50">{t.repartition === "reparti" ? "Réparti sur les dossiers livrés" : "0 FDJ par dossier"}</div></>}</td>
                   <td className="font-semibold">{fdj(t.prix_fdj)}</td>
                   <td>{dateCourte(t.date_debut)}</td>
                   <td><button onClick={() => toggleTarif(t)} className={t.actif ? "font-semibold text-green-700" : "text-ink/50"}>{t.actif ? "● Actif" : "○ Inactif"}</button></td>
@@ -81,7 +81,7 @@ export default function CompagnieDetail() {
               ))}</tbody>
             </table>
           )}
-          <p className="px-4 py-3 text-xs text-ink/50">Le tarif « par dossier » actif est appliqué automatiquement à chaque nouveau dossier. Le forfait mensuel s&apos;ajoute au CA mensuel dans les rapports.</p>
+          <p className="px-4 py-3 text-xs text-ink/50">Le tarif « par dossier » actif est appliqué automatiquement à chaque nouveau dossier. Forfait mensuel : soit 0 FDJ par dossier (forfait compté une fois par mois), soit réparti (forfait ÷ dossiers livrés du mois, attribué aux livreurs dans les rapports).</p>
         </Card>
 
         <Card>
@@ -116,13 +116,13 @@ export default function CompagnieDetail() {
 }
 
 function TarifModal({ open, onClose, compagnieId, onDone }: { open: boolean; onClose: () => void; compagnieId: string; onDone: () => void }) {
-  const [f, setF] = useState({ type: "par_dossier", prix_fdj: "", date_debut: new Date().toISOString().slice(0, 10), desactiver: true });
+  const [f, setF] = useState({ type: "par_dossier", prix_fdj: "", date_debut: new Date().toISOString().slice(0, 10), desactiver: true, repartition: "zero" });
   const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
   async function submit(e: React.FormEvent) {
     e.preventDefault(); setLoading(true); setErr("");
     const client = sb("control");
     if (f.desactiver) await client.from("tarification").update({ actif: false }).eq("compagnie_id", compagnieId).eq("type", f.type);
-    const { error } = await client.from("tarification").insert({ compagnie_id: compagnieId, type: f.type, prix_fdj: Number(f.prix_fdj), date_debut: f.date_debut, actif: true });
+    const { error } = await client.from("tarification").insert({ compagnie_id: compagnieId, type: f.type, prix_fdj: Number(f.prix_fdj), date_debut: f.date_debut, actif: true, ...(f.type === "forfait_mensuel" ? { repartition: f.repartition } : {}) });
     setLoading(false);
     if (error) return setErr(errMsg(error));
     onDone();
@@ -135,7 +135,15 @@ function TarifModal({ open, onClose, compagnieId, onDone }: { open: boolean; onC
             <option value="par_dossier">Par dossier</option><option value="forfait_mensuel">Forfait mensuel</option>
           </Select>
         </Field>
-        <Field label="Prix (FDJ)"><Input type="number" required min={0} value={f.prix_fdj} onChange={(e) => setF({ ...f, prix_fdj: e.target.value })} /></Field>
+        {f.type === "forfait_mensuel" && (
+          <Field label="Prix par dossier">
+            <Select value={f.repartition} onChange={(e) => setF({ ...f, repartition: e.target.value })}>
+              <option value="zero">0 FDJ par dossier — forfait compté une fois par mois</option>
+              <option value="reparti">Forfait ÷ nb de dossiers livrés du mois</option>
+            </Select>
+          </Field>
+        )}
+        <Field label={f.type === "forfait_mensuel" ? "Montant du forfait mensuel (FDJ)" : "Prix (FDJ)"}><Input type="number" required min={0} value={f.prix_fdj} onChange={(e) => setF({ ...f, prix_fdj: e.target.value })} /></Field>
         <Field label="À partir du"><Input type="date" required value={f.date_debut} onChange={(e) => setF({ ...f, date_debut: e.target.value })} /></Field>
         <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={f.desactiver} onChange={(e) => setF({ ...f, desactiver: e.target.checked })} /> Désactiver l&apos;ancien tarif du même type</label>
         <Alert>{err}</Alert>

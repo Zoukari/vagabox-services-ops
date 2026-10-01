@@ -66,7 +66,19 @@ export default function Rapports() {
       parCie[f.compagnie_id] ??= { confies: 0, livres: 0, nonTrouves: 0, ca: 0 };
       parCie[f.compagnie_id].ca += f.prix_fdj;
     });
-    return { parMois, parCie, parLiv: agg("livreur_id"), courant: parMois.find((x) => x.m === mois), confies: duMois.length };
+    // Forfaits « réparti » : forfait ÷ dossiers livrés du mois, attribué aux livreurs
+    const parLiv = agg("livreur_id");
+    forfaits.filter((f) => f.repartition === "reparti" && f.date_debut.slice(0, 7) <= mois).forEach((f) => {
+      const l = livresMois.filter((r) => r.compagnie_id === f.compagnie_id);
+      if (!l.length) return;
+      const part = f.prix_fdj / l.length;
+      l.forEach((r) => {
+        const k = r.livreur_id ?? "—"; parLiv[k] ??= { confies: 0, livres: 0, nonTrouves: 0, ca: 0 };
+        parLiv[k].ca += part;
+      });
+    });
+    Object.values(parLiv).forEach((v) => { v.ca = Math.round(v.ca); });
+    return { parMois, parCie, parLiv, courant: parMois.find((x) => x.m === mois), confies: duMois.length };
   }, [rows, forfaits, mois]);
 
   function exportCSV() {
@@ -113,13 +125,13 @@ export default function Rapports() {
 
       <div className="mt-5 grid gap-5 lg:grid-cols-2">
         <Table titre="Par compagnie" data={stats.parCie} noms={cies} />
-        <Table titre="Par livreur" data={stats.parLiv} noms={livs} vide="Non assigné" />
+        <Table titre="Par livreur" data={stats.parLiv} noms={livs} vide="Non assigné" note="Forfaits « 0 FDJ / dossier » non attribués aux livreurs ; forfaits « réparti » inclus." />
       </div>
     </>
   );
 }
 
-function Table({ titre, data, noms, vide = "—" }: { titre: string; data: Record<string, { confies: number; livres: number; nonTrouves: number; ca: number }>; noms: Record<string, string>; vide?: string }) {
+function Table({ titre, data, noms, vide = "—", note }: { titre: string; data: Record<string, { confies: number; livres: number; nonTrouves: number; ca: number }>; noms: Record<string, string>; vide?: string; note?: string }) {
   const entries = Object.entries(data).sort((a, b) => b[1].ca - a[1].ca);
   return (
     <Card className="overflow-x-auto">
@@ -138,6 +150,7 @@ function Table({ titre, data, noms, vide = "—" }: { titre: string; data: Recor
           ))}</tbody>
         </table>
       )}
+      {note && <p className="px-4 py-2 text-xs text-ink/50">{note}</p>}
     </Card>
   );
 }

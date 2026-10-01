@@ -15,6 +15,7 @@ Next.js 14 (App Router) · Supabase (Postgres, Auth, Storage, Edge Functions) ·
 Projet `vagabox-services-ops` (`ntpxobakaprkmfiiiokr`, eu-central-1) — déjà provisionné.
 
 - `supabase/migrations/` — schéma, RLS, durcissement (déjà appliqués)
+- **`20261001000004_forfait_compta.sql` — À EXÉCUTER dans le SQL Editor** : mode forfait (`zero` / `reparti`), colonnes système + source dans `comptabilite`, une saisie par jour
 - `supabase/functions/livreur-auth` — PIN → session (4h côté app, anti brute-force 8 essais / 15 min / IP)
 - `supabase/functions/admin-users` — création admin / livreurs / comptes compagnie, reset PIN & mot de passe
 
