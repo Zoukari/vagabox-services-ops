@@ -1,34 +1,22 @@
 import { cx } from "@/lib/utils";
 
-export type AppLogo = "control" | "go" | "track";
-const ALT: Record<AppLogo, string> = { control: "Vagabox VS Control", go: "Vagabox VS Go", track: "Vagabox VS Track" };
+export type AppLogo = "control" | "go" | "track" | "global" | "mark";
+const ALT: Record<AppLogo, string> = {
+  control: "VS Control", go: "VS Go", track: "VS Track", global: "Vagabox Services", mark: "Vagabox Services",
+};
 
-/** Logo officiel d'une interface (fond noir intégré → à poser sur fond noir). */
+/** Logos officiels (PNG/WebP transparents) */
 export function AppLogo({ app, className }: { app: AppLogo; className?: string }) {
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={`/logos/vs-${app}.webp`} alt={ALT[app]} className={cx("h-14 w-auto select-none", className)} draggable={false} />;
+  return <img src={`/logos/vs-${app}.webp`} alt={ALT[app]} data-no-i18n
+    className={cx("h-12 w-auto select-none drop-shadow-[0_6px_14px_rgb(11_42_91/0.12)] dark:drop-shadow-[0_0_18px_rgb(76_120_195/0.25)]", className)} draggable={false} />;
 }
 
-export default function Logo({ dark, sub, className, app }: { dark?: boolean; sub?: string; className?: string; app?: AppLogo }) {
-  if (app) {
-    return (
-      <div className={cx("flex items-center gap-3", className)}>
-        <AppLogo app={app} />
-        {sub && <span className="hidden text-xs font-semibold uppercase tracking-widest text-white/60 sm:block">{sub}</span>}
-      </div>
-    );
-  }
+export default function Logo({ className, app = "global", sub }: { className?: string; app?: AppLogo; sub?: string; dark?: boolean }) {
   return (
-    <div className={cx("flex items-center gap-2.5", className)}>
-      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-ink">
-        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-          <rect x="5" y="7" width="14" height="13" rx="2" /><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" /><path d="M9 12h6" />
-        </svg>
-      </span>
-      <span className="leading-tight">
-        <span className={cx("block text-base font-extrabold tracking-tight", dark ? "text-white" : "text-ink")}>Vagabox Services</span>
-        {sub && <span className={cx("block text-[11px] font-semibold uppercase tracking-widest", dark ? "text-accent" : "text-accent-dark")}>{sub}</span>}
-      </span>
+    <div className={cx("flex items-center gap-3", className)}>
+      <AppLogo app={app} />
+      {sub && <span className="hidden text-xs font-semibold uppercase tracking-widest text-ink/50 sm:block">{sub}</span>}
     </div>
   );
 }

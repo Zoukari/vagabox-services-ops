@@ -95,7 +95,7 @@ export default function Comptabilite() {
         <Button onClick={() => setEdit({ date: aujourdhui() })}>+ Saisie manuelle</Button>
       </PageHeader>
       {msg && <div className="mb-4"><Alert kind={msg.startsWith("Calcul") ? "ok" : "error"}>{msg}</Alert></div>}
-      <div className="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="mb-5 stagger grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Kpi label={`Dossiers saisis — ${moisLabel(mois)}`} value={totD} />
         <Kpi label="Montant saisi" value={<span className="text-2xl">{fdj(totF)}</span>} tone="text-green-700" />
         <Kpi label="Montant système" value={<span className="text-2xl">{fdj(sysF)}</span>} sub="dossiers livrés × prix" />

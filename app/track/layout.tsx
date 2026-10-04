@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import Logo from "@/components/Logo";
+import { AppLogo } from "@/components/Logo";
+import Icon from "@/components/Icon";
 import { Loading } from "@/components/ui";
 import { sb } from "@/lib/supabase";
 import { TrackCtx, estSaisie } from "@/lib/trackContext";
@@ -23,32 +24,39 @@ function Shell({ children, path }: { children: React.ReactNode; path: string }) 
   }, [profil]);
   if (!profil) return <Loading />;
   const nav = [
-    ...(estSaisie(profil) ? [{ href: "/track/declarer", label: "+ Déclarer un bagage", cta: true }] : []),
-    { href: "/track", label: "Dashboard" },
-    { href: "/track/dossiers", label: "Dossiers" },
+    ...(estSaisie(profil) ? [{ href: "/track/declarer", label: "Déclarer un bagage", cta: true, icon: "plus" }] : []),
+    { href: "/track", label: "Dashboard", icon: "dashboard" },
+    { href: "/track/dossiers", label: "Dossiers", icon: "folder" },
   ];
   return (
     <TrackCtx.Provider value={profil}>
       <div className="min-h-screen">
-        <header className="bg-black">
+        <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-white/85 backdrop-blur-xl">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-2">
-            <Logo app="track" sub={cie} />
-            <div className="flex flex-wrap items-center gap-1">
+            <Link href="/track" className="flex items-center gap-3">
+              <AppLogo app="track" className="h-14 w-auto" />
+              {cie && <span className="hidden rounded-full bg-navy-50 px-3 py-1 text-xs font-bold text-navy dark:bg-white/5 dark:text-navy-200 sm:block" data-no-i18n>{cie}</span>}
+            </Link>
+            <div className="flex flex-wrap items-center gap-1.5">
               {nav.map((n) => {
                 const a = n.href === "/track" ? path === n.href : path.startsWith(n.href);
                 return (
                   <Link key={n.href} href={n.href}
-                    className={cx("rounded-lg px-3 py-1.5 text-sm font-semibold",
-                      a ? "bg-accent text-ink" : "cta" in n ? "bg-blue-600 text-white hover:bg-blue-500" : "text-white/70 hover:text-white")}>
-                    {n.label}
+                    className={cx("flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-semibold transition-all duration-200",
+                      "cta" in n
+                        ? "shine bg-gradient-to-r from-brand-blue to-navy-800 text-snow shadow-md hover:-translate-y-px"
+                        : a ? "bg-navy text-snow dark:bg-navy-600" : "text-ink/65 hover:bg-black/5 hover:text-ink")}>
+                    {"icon" in n && <Icon name={n.icon as string} className="h-4 w-4" />}{n.label}
                   </Link>
                 );
               })}
-              <button onClick={() => deconnexion("track")} className="ml-2 text-sm text-white/50 hover:text-white">Déconnexion</button>
+              <button onClick={() => deconnexion("track")} className="ml-1 flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-ink/60 transition hover:text-red-600" aria-label="Déconnexion">
+                <Icon name="logout" className="h-4 w-4 rtl:rotate-180" />
+              </button>
             </div>
           </div>
         </header>
-        <main className="mx-auto max-w-6xl px-4 py-6">{children}</main>
+        <main key={path} className="mx-auto max-w-6xl animate-fade-up px-4 py-6 lg:py-8">{children}</main>
       </div>
     </TrackCtx.Provider>
   );

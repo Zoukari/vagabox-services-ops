@@ -12,7 +12,7 @@ export default function Timer({ depuis, big }: { depuis: string | null; big?: bo
   return (
     <span className={cx("inline-flex items-center gap-1.5 rounded-lg font-mono font-bold tabular-nums",
       big ? "px-3 py-2 text-3xl" : "px-2 py-0.5 text-xs",
-      d.retard ? "bg-red-600 text-white" : "bg-orange-100 text-orange-800")}>
+      d.retard ? "bg-red-600 text-snow" : "bg-orange-100 text-orange-800")}>
       ⏱ {d.retard ? `Retard ${d.texte}` : d.texte}
     </span>
   );

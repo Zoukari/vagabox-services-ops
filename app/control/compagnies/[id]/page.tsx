@@ -67,7 +67,7 @@ export default function CompagnieDetail() {
     <>
       <Link href="/control/compagnies" className="text-sm text-ink/60 hover:text-ink">← Compagnies</Link>
       <div className="mb-5 mt-2 flex flex-wrap items-center justify-between gap-2">
-        <h1 className="text-2xl font-bold">{c.nom} {c.code && <span className="ml-1 rounded bg-ink px-2 py-0.5 align-middle font-mono text-sm text-white">{c.code}</span>}</h1>
+        <h1 className="text-2xl font-bold">{c.nom} {c.code && <span className="ml-1 rounded-md bg-navy px-2 py-0.5 align-middle font-mono text-sm text-snow">{c.code}</span>}</h1>
         <div className="flex gap-2">
           <Link href={`/control/dossiers?compagnie=${c.id}`}><Button variant="outline">Dossiers</Button></Link>
           <Button variant="outline" onClick={() => setEdit(true)}>Modifier</Button>

@@ -30,7 +30,7 @@ export default function TrackDashboard() {
       <PageHeader title="Tableau de bord" sub={`Statistiques de ${moisLabel(mois)}`}>
         <Input type="month" value={mois} onChange={(e) => e.target.value && setMois(e.target.value)} className="w-44" />
       </PageHeader>
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="stagger grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Kpi label="Dossiers confiés" value={rows.length} />
         <Kpi label="Livrés" value={livres} tone="text-green-600" sub={`${taux}% de réussite`} />
         <Kpi label="En cours" value={n(["a_recuperer", "recupere", "en_livraison", "replanifie"])} tone="text-orange-600" />

@@ -1,10 +1,9 @@
 "use client";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { App, sb } from "@/lib/supabase";
 import { Alert, Button, Field, Input } from "./ui";
-import { AppLogo } from "./Logo";
+import AuthShell from "./AuthShell";
 
 export default function EmailLogin({ app, sub, role, children }: { app: App; sub: string; role: "admin" | "compagnie"; children?: React.ReactNode }) {
   const router = useRouter();
@@ -28,17 +27,13 @@ export default function EmailLogin({ app, sub, role, children }: { app: App; sub
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-black px-4">
-      <div className="w-full max-w-sm">
-        <Link href="/" className="block" title={sub}><AppLogo app={app === "track" ? "track" : "control"} className="mx-auto h-32" /></Link>
-        <form onSubmit={submit} className="mt-8 space-y-4 rounded-2xl bg-white p-6">
-          <Field label="Email"><Input type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></Field>
-          <Field label="Mot de passe"><Input type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} /></Field>
-          <Alert>{err}</Alert>
-          <Button className="w-full" loading={loading}>Se connecter</Button>
-        </form>
-        {children}
-      </div>
-    </main>
+    <AuthShell app={app === "track" ? "track" : "control"} titre={sub} sousTitre="Connectez-vous pour continuer" footer={children}>
+      <form onSubmit={submit} className="space-y-4 rounded-3xl border border-black/[0.07] bg-white p-6 shadow-lift">
+        <Field label="Email"><Input type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></Field>
+        <Field label="Mot de passe"><Input type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} /></Field>
+        <Alert>{err}</Alert>
+        <Button className="w-full" size="lg" loading={loading}>Se connecter</Button>
+      </form>
+    </AuthShell>
   );
 }

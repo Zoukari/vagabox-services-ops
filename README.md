@@ -35,7 +35,11 @@ cp .env.example .env.local
 npm install
 npm run dev
 ```
-Premier lancement : ouvrir `/control/login` → « Créer le compte administrateur » (fonctionne une seule fois).
+Premier lancement : ouvrir `/control/setup` (lien « Première utilisation ? Créer le compte administrateur » sous le formulaire de `/control/login`). Fonctionne une seule fois : refusé côté serveur dès qu'un admin existe.
+
+## Thème & langues
+- Thème clair/sombre (bouton rond bas-droite, mémorisé par navigateur).
+- FR / EN / AR (bouton au-dessus). Traduction par dictionnaire `lib/i18n-dict.ts` appliquée au texte affiché (`lib/i18n.tsx`) ; arabe en RTL. Pour un nouveau texte : ajouter l'entrée FR → [EN, AR]. `data-no-i18n` exclut un élément.
 
 ## Déploiement Vercel
 Importer le repo, ajouter les variables `NEXT_PUBLIC_SUPABASE_URL` et `NEXT_PUBLIC_SUPABASE_ANON_KEY` (voir `.env.example`). Aucune clé secrète côté Vercel : tout ce qui est privilégié passe par les Edge Functions.

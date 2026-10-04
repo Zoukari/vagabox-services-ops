@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AppLogo } from "@/components/Logo";
+import AuthShell from "@/components/AuthShell";
 import { Spinner } from "@/components/ui";
 import { FN_URL } from "@/lib/constants";
 import { sb } from "@/lib/supabase";
@@ -44,26 +44,26 @@ export default function GoLogin() {
   };
 
   return (
-    <main className="flex min-h-[100dvh] flex-col bg-black px-6 pb-8 pt-8 text-white">
-      <AppLogo app="go" className="mx-auto h-28" />
-      <div className="flex flex-1 flex-col items-center justify-center">
-        <p className="mb-6 text-white/70">Entrez votre PIN</p>
-        <div className="mb-3 flex gap-3">
+    <AuthShell app="go" titre="Espace livreurs" sousTitre="Entrez votre PIN">
+      <div className="rounded-3xl border border-black/[0.07] bg-white p-6 shadow-lift">
+        <div dir="ltr" className={cx("flex justify-center gap-3", err && "animate-[shake_.4s]")}>
           {Array.from({ length: 6 }).map((_, i) => (
-            <span key={i} className={cx("h-4 w-4 rounded-full border-2 transition", i < pin.length ? "border-accent bg-accent" : "border-white/30")} />
+            <span key={i} className={cx("h-4 w-4 rounded-full border-2 transition-all duration-200",
+              i < pin.length ? "scale-110 border-navy bg-navy dark:border-navy-300 dark:bg-navy-300" : "border-black/20")} />
           ))}
         </div>
-        <div className="h-6 text-sm text-red-400">{loading ? <Spinner className="h-5 w-5 text-accent" /> : err}</div>
-        <div className="mt-6 grid w-full max-w-xs grid-cols-3 gap-3">
+        <div className="mt-3 flex h-6 items-center justify-center text-sm font-medium text-red-600">{loading ? <Spinner className="h-5 w-5 text-accent" /> : err}</div>
+        <div dir="ltr" className="mt-4 grid grid-cols-3 gap-3">
           {["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "⌫"].map((k, i) =>
             k === "" ? <span key={i} /> : (
-              <button key={i} onClick={() => press(k)}
-                className="h-16 rounded-2xl bg-white/10 text-2xl font-semibold active:scale-95 active:bg-accent active:text-ink">
+              <button key={i} onClick={() => press(k)} data-no-i18n
+                className={cx("h-16 rounded-2xl text-2xl font-bold transition-all duration-150 active:scale-90",
+                  k === "⌫" ? "text-ink/50 hover:bg-black/5" : "bg-black/[0.04] text-ink hover:bg-navy-50 active:bg-navy active:text-snow dark:hover:bg-white/10")}>
                 {k}
               </button>
             ))}
         </div>
       </div>
-    </main>
+    </AuthShell>
   );
 }

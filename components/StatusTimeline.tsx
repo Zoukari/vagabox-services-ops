@@ -53,7 +53,7 @@ export default function StatusTimeline({ app, dossierId, refresh = 0 }: { app: A
         })}
       </ol>
       {zoom && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={() => setZoom(null)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-night/80 p-4 backdrop-blur-sm" onClick={() => setZoom(null)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={zoom} alt="Photo" className="max-h-full max-w-full rounded-lg" />
         </div>

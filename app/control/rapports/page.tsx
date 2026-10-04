@@ -102,7 +102,7 @@ export default function Rapports() {
         <Button variant="outline" onClick={exportCSV}>Export CSV</Button>
       </PageHeader>
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="stagger grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Kpi label="CA du mois" value={<span className="text-2xl">{fdj(stats.courant?.ca ?? 0)}</span>} tone="text-green-700"
           sub={stats.courant?.forfait ? `dont forfaits ${fdj(stats.courant.forfait)}` : undefined} />
         <Kpi label="Dossiers livrés" value={stats.courant?.n ?? 0} />

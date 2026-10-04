@@ -77,7 +77,7 @@ export default function Declarer() {
     <>
       <PageHeader title="Déclarer un bagage" sub="Bagage à livrer à domicile par Vagabox Services" />
       <form onSubmit={submit} className="grid gap-5 lg:grid-cols-2">
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
           <Card className="space-y-4 p-5">
             <h2 className="font-bold">👤 Passager</h2>
             <div className="grid grid-cols-2 gap-3">
@@ -109,7 +109,7 @@ export default function Declarer() {
           </Card>
         </div>
 
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
           <Card className="space-y-4 p-5">
             <h2 className="font-bold">🧳 Bagages</h2>
             <Field label="Type d'incident">

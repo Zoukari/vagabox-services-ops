@@ -25,10 +25,10 @@ export default function Compagnies() {
             const t = c.tarification.filter((x) => x.actif);
             return (
               <Link key={c.id} href={`/control/compagnies/${c.id}`}>
-                <Card className="h-full p-4 transition hover:border-accent">
+                <Card hover className="h-full p-5">
                   <div className="flex items-start justify-between">
                     <div className="font-bold">{c.nom}</div>
-                    {c.code && <span className="rounded bg-ink px-2 py-0.5 font-mono text-xs font-bold text-white">{c.code}</span>}
+                    {c.code && <span className="rounded-md bg-navy px-2 py-0.5 font-mono text-xs font-bold text-snow">{c.code}</span>}
                   </div>
                   <div className="mt-1 text-sm text-ink/60">{c.contact_nom ?? "—"} {c.contact_email && `· ${c.contact_email}`}</div>
                   <div className="mt-3 flex flex-wrap gap-1.5">

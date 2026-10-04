@@ -12,20 +12,17 @@ export const telComplet = (t: Tel) => {
 
 /** Sélecteur de pays (indicatif, liste déroulante) + numéro */
 export default function PhoneInput({ value, onChange, required }: { value: Tel; onChange: (t: Tel) => void; required?: boolean }) {
-  const cls = "h-10 rounded-lg border border-black/15 bg-white px-2 text-sm text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent/30";
+  const cls = "h-11 rounded-xl border border-black/10 bg-white px-2.5 text-sm text-ink outline-none transition hover:border-black/20 focus:border-accent focus:shadow-glow";
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2" dir="ltr">
       <select aria-label="Pays" value={value.indicatif} onChange={(e) => onChange({ ...value, indicatif: e.target.value })}
-        className={cx(cls, "w-[8.5rem] shrink-0")}>
+        className={cx(cls, "w-[45%] max-w-[11.5rem] shrink-0 pr-8")}>
         {PAYS.map((p) => <option key={p.code} value={p.indicatif}>{p.drapeau} {p.nom} +{p.indicatif}</option>)}
       </select>
-      <div className="relative flex-1">
-        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-ink/50">+{value.indicatif}</span>
-        <input type="tel" inputMode="tel" required={required} value={value.numero}
-          onChange={(e) => onChange({ ...value, numero: e.target.value.replace(/[^\d\s]/g, "") })}
-          placeholder={value.indicatif === "253" ? "77 12 34 56" : "Numéro"}
-          className={cx(cls, "w-full")} style={{ paddingLeft: `${1.4 + value.indicatif.length * 0.55}rem` }} />
-      </div>
+      <input type="tel" inputMode="tel" size={8} required={required} value={value.numero}
+        onChange={(e) => onChange({ ...value, numero: e.target.value.replace(/[^\d\s]/g, "") })}
+        placeholder={value.indicatif === "253" ? "77 12 34 56" : "Numéro"}
+        className={cx(cls, "min-w-0 flex-1 px-3.5 tracking-wide")} />
     </div>
   );
 }
