@@ -13,8 +13,8 @@ export default function AuthShell({ app, titre, sousTitre, children, footer }: {
         <span className="absolute -left-24 -top-24 h-96 w-96 animate-blob rounded-full bg-brand-blue/30 blur-3xl" />
         <span className="absolute -bottom-32 -right-20 h-[28rem] w-[28rem] animate-blob rounded-full bg-brand-sun/20 blur-3xl [animation-delay:-8s]" />
         <div className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(#fff_1px,transparent_1px)] [background-size:22px_22px]" />
-        <Link href="/" className="relative flex h-80 w-80 animate-scale-in items-center justify-center rounded-full bg-snow/95 shadow-[0_30px_80px_-20px_rgb(0_0_0/0.6)] ring-8 ring-snow/10">
-          <AppLogo app={app} className="h-auto w-64 animate-float drop-shadow-none" />
+        <Link href="/" className="relative animate-fade-up rounded-[2.5rem] bg-snow px-12 py-10 shadow-[0_30px_80px_-20px_rgb(0_0_0/0.6)] ring-8 ring-snow/10">
+          <AppLogo app={app} className="h-auto w-72 max-w-full" />
         </Link>
         <p className="relative mt-10 max-w-sm animate-fade-up text-center text-lg font-medium text-snow/80 [animation-delay:.2s]">
           Livraison à domicile des bagages récupérés en compagnie — Djibouti.

@@ -9,7 +9,7 @@ const ALT: Record<AppLogo, string> = {
 export function AppLogo({ app, className }: { app: AppLogo; className?: string }) {
   // eslint-disable-next-line @next/next/no-img-element
   return <img src={`/logos/vs-${app}.webp`} alt={ALT[app]} data-no-i18n
-    className={cx("h-12 w-auto select-none drop-shadow-[0_6px_14px_rgb(11_42_91/0.12)] dark:drop-shadow-[0_0_18px_rgb(76_120_195/0.25)]", className)} draggable={false} />;
+    className={cx("select-none", className ?? "h-12 w-auto")} draggable={false} />;
 }
 
 export default function Logo({ className, app = "global", sub }: { className?: string; app?: AppLogo; sub?: string; dark?: boolean }) {

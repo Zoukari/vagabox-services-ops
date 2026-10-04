@@ -11,6 +11,11 @@ function Inner() {
   useEffect(() => { callFn("control", "admin-users", { action: "etat" }).then((r) => setPremier(!r.admin_existe)).catch(() => setPremier(null)); }, []);
   return (
     <EmailLogin app="control" sub="Espace administrateur" role="admin">
+      {premier === false && (
+        <div className="rounded-2xl border border-black/10 bg-white/60 p-4 text-sm text-ink/60">
+          Un compte administrateur existe déjà. Connectez-vous avec son email, ou réinitialisez son mot de passe depuis Supabase.
+        </div>
+      )}
       {premier !== false && (
         <Link href="/control/setup"
           className={cx("group flex items-center justify-between gap-3 rounded-2xl border p-4 text-sm font-semibold transition hover:-translate-y-0.5",
