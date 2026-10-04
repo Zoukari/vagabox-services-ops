@@ -57,7 +57,7 @@ html[dir="rtl"] .tbl { text-align: right; }
 
 /* Décor animé de fond */
 .bg-mesh { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
-.bg-mesh span { position: absolute; border-radius: 9999px; filter: blur(70px); opacity: .45; }
+.bg-mesh span { position: absolute; border-radius: 9999px; opacity: .6; will-change: transform; }
 .dark .bg-mesh span { opacity: .28; }
 
 /* Effet brillance sur boutons */

@@ -133,7 +133,7 @@ export function Modal({ open, onClose, title, children, wide }: { open: boolean;
   return (
     <div className="fixed inset-0 z-[70] flex animate-fade-in items-end justify-center bg-night/45 backdrop-blur-sm sm:items-center sm:p-4" onClick={onClose}>
       <div onClick={(e) => e.stopPropagation()}
-        className={cx("max-h-[92vh] w-full animate-slide-up overflow-y-auto rounded-t-3xl border border-black/10 bg-white p-6 shadow-lift sm:animate-scale-in sm:rounded-3xl", wide ? "sm:max-w-2xl" : "sm:max-w-md")}>
+        className={cx("max-h-[88vh] max-h-[88dvh] w-full animate-slide-up overflow-y-auto overscroll-contain rounded-t-3xl border border-black/10 bg-white p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] shadow-lift [-webkit-overflow-scrolling:touch] sm:animate-scale-in sm:rounded-3xl", wide ? "sm:max-w-2xl" : "sm:max-w-md")}>
         <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-black/10 sm:hidden" />
         <div className="mb-5 flex items-center justify-between gap-3">
           <h2 className="text-lg font-bold text-ink">{title}</h2>

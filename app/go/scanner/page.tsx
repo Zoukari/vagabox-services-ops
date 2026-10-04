@@ -15,8 +15,9 @@ export default function Scanner() {
     const c = code.trim().replace(/[,(){}"]/g, "");
     if (!c) return;
     setMsg(null);
-    const { data } = await sb("go").from("dossiers").select("id")
+    let { data, error } = await sb("go").from("dossiers").select("id")
       .or(`tag_iata.eq.${c},numero_dossier.ilike.${c},tags_iata.cs.{${c}}`).limit(1);
+    if (error) ({ data } = await sb("go").from("dossiers").select("id").or(`tag_iata.eq.${c},numero_dossier.ilike.${c}`).limit(1));
     if (data?.length) { setActif(false); router.push(`/go/dossiers/${data[0].id}?scan=${encodeURIComponent(c)}`); return; }
     // Tag partiel (10 chiffres IATA vs saisie courte) : recherche par suffixe
     const { data: d2 } = await sb("go").from("dossiers").select("id").ilike("tag_iata", `%${c.slice(-6)}`).limit(2);

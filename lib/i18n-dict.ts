@@ -356,6 +356,10 @@ export const DICT: Record<string, [string, string]> = {
   "Login email / mot de passe (optionnel)": ["Email / password login (optional)", "الدخول بالبريد / كلمة المرور (اختياري)"],
   "Statistiques": ["Statistics", "الإحصاءات"],
   "Déclarer": ["Declare", "تصريح"],
+  "Photo du tag": ["Photo of the tag", "صورة البطاقة"],
+  "Analyse de la photo…": ["Analysing photo…", "جارٍ تحليل الصورة…"],
+  "Si le scan ne réagit pas : rapprochez l'étiquette ou utilisez « Photo du tag ».": ["If the scan doesn't react: move the label closer or use “Photo of the tag”.", "إذا لم يستجب المسح: قرّب البطاقة أو استخدم «صورة البطاقة»."],
+  "Code-barres illisible sur la photo — reprenez-la de plus près, bien à plat, ou saisissez le numéro.": ["Barcode unreadable in the photo — retake it closer and flat, or type the number.", "الرمز الشريطي غير مقروء في الصورة — أعد التقاطها عن قرب وبشكل مستوٍ، أو أدخل الرقم."],
   "Un compte administrateur existe déjà. Connectez-vous avec son email, ou réinitialisez son mot de passe depuis Supabase.": ["An administrator account already exists. Sign in with its email, or reset its password from Supabase.", "يوجد حساب مسؤول بالفعل. سجّل الدخول ببريده الإلكتروني أو أعد تعيين كلمة المرور من Supabase."],
 };
 

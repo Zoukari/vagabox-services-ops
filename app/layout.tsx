@@ -24,9 +24,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           <I18nProvider>
             <div className="bg-mesh" aria-hidden>
-              <span className="left-[-10%] top-[-10%] h-[45vw] w-[45vw] animate-blob bg-navy-200" />
-              <span className="bottom-[-15%] right-[-10%] h-[40vw] w-[40vw] animate-blob bg-brand-sun/40 [animation-delay:-6s]" />
-              <span className="right-[20%] top-[30%] h-[25vw] w-[25vw] animate-blob bg-brand-blue/20 [animation-delay:-12s]" />
+              <span className="left-[-15%] top-[-15%] h-[60vw] w-[60vw] md:animate-blob" style={{ background: "radial-gradient(closest-side, rgb(175 198 234 / .9), transparent)" }} />
+              <span className="bottom-[-20%] right-[-15%] h-[55vw] w-[55vw] md:animate-blob md:[animation-delay:-6s]" style={{ background: "radial-gradient(closest-side, rgb(253 191 111 / .35), transparent)" }} />
+              <span className="right-[15%] top-[25%] h-[35vw] w-[35vw] md:animate-blob md:[animation-delay:-12s]" style={{ background: "radial-gradient(closest-side, rgb(58 115 184 / .18), transparent)" }} />
             </div>
             {children}
             <FloatingControls />
