@@ -358,6 +358,8 @@ export const DICT: Record<string, [string, string]> = {
   "Déclarer": ["Declare", "تصريح"],
   "Photo du tag": ["Photo of the tag", "صورة البطاقة"],
   "Fermer le scanner": ["Close scanner", "إغلاق الماسح"],
+  "Valider — Récupéré · lancer le timer 1h": ["Confirm — Collected · start 1h timer", "تأكيد — تم الاستلام · بدء مؤقت الساعة"],
+  "— Automatique (livreur le moins chargé) —": ["— Automatic (least busy driver) —", "— تلقائي (السائق الأقل انشغالًا) —"],
   "2. Photo des valises": ["2. Photo of the bags", "2. صورة الحقائب"],
   "Photo des valises (obligatoire)": ["Photo of the bags (required)", "صورة الحقائب (إلزامية)"],
   "J'ai vérifié les tags visuellement": ["I checked the tags visually", "تحققت من البطاقات بصريًا"],
