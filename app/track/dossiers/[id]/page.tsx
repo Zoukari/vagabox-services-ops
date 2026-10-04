@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import InfosDeclaration from "@/components/InfosDeclaration";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { sb } from "@/lib/supabase";
@@ -24,10 +25,12 @@ export default function TrackDossier() {
         <Card className="space-y-3 p-5">
           <Row l="Tag IATA" v={<span className="font-mono">{d.tag_iata ?? "—"}</span>} />
           <Row l="Passager" v={nomComplet(d.client_nom, d.client_prenom)} />
+          <Row l="Compagnie" v={d.compagnie_nom} />
           <Row l="Quartier" v={d.quartier ?? "—"} />
           <Row l="Livreur" v={d.livreur_nom ?? "—"} />
           <Row l="Créé le" v={dateHeure(d.created_at)} />
           {d.date_livraison && <Row l="Livré le" v={dateHeure(d.date_livraison)} />}
+          <InfosDeclaration d={d} />
         </Card>
         <Card className="p-5 lg:col-span-2">
           <h2 className="mb-4 font-bold">Chronologie</h2>

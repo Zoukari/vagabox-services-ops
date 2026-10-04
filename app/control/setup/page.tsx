@@ -22,9 +22,9 @@ export default function Setup() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-ink px-4">
+    <main className="flex min-h-screen items-center justify-center bg-black px-4">
       <div className="w-full max-w-sm">
-        <Logo dark sub="Configuration initiale" />
+        <Logo app="control" className="justify-center" />
         <form onSubmit={submit} className="mt-8 space-y-4 rounded-2xl bg-white p-6">
           <p className="text-sm text-ink/70">Créez le compte administrateur principal. Cette page ne fonctionne qu&apos;une seule fois.</p>
           <Field label="Nom"><Input required value={f.nom} onChange={(e) => setF({ ...f, nom: e.target.value })} /></Field>

@@ -1,5 +1,6 @@
 "use client";
 import { Suspense, useCallback, useEffect, useState } from "react";
+import InfosDeclaration from "@/components/InfosDeclaration";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { errMsg, sb } from "@/lib/supabase";
@@ -53,6 +54,7 @@ function Inner() {
         {d.client_adresse && <div className="text-sm text-ink/60">{d.client_adresse}</div>}
         <div className="mt-1 text-sm text-ink/50">{d.compagnie_nom}{d.tag_iata && <> · Tag <span className="font-mono">{d.tag_iata}</span></>}</div>
         {d.notes && <div className="mt-2 rounded-lg bg-amber-50 p-2 text-sm">{d.notes}</div>}
+        <div className="mt-2"><InfosDeclaration d={d} compact /></div>
         {tel && (
           <a href={`tel:${tel.length === 8 ? "+253" + tel : "+" + tel}`}
             className="mt-3 flex h-11 items-center justify-center rounded-xl border border-black/15 font-semibold">📞 Appeler {d.client_telephone}</a>
@@ -123,7 +125,8 @@ function ActionModal({ action, dossier, scanInitial, onClose, onDone }: {
   const [err, setErr] = useState("");
 
   const normal = (s: string) => s.replace(/\D/g, "").slice(-6);
-  const tagOk = !dossier.tag_iata || (scan && (scan === dossier.tag_iata || normal(scan) === normal(dossier.tag_iata)));
+  const tagsAttendus = Array.from(new Set([dossier.tag_iata, ...(dossier.tags_iata ?? [])].filter(Boolean) as string[]));
+  const tagOk = !tagsAttendus.length || (scan && tagsAttendus.some((t) => scan === t || normal(scan) === normal(t)));
   const onScan = useCallback((c: string) => { setScan(c); setScanOuvert(false); }, []);
 
   const photoRequise = action === "recupere" || action === "livre";

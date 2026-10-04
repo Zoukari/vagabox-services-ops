@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Logo from "@/components/Logo";
+import { AppLogo } from "@/components/Logo";
 import { Spinner } from "@/components/ui";
 import { FN_URL } from "@/lib/constants";
 import { sb } from "@/lib/supabase";
@@ -44,8 +44,8 @@ export default function GoLogin() {
   };
 
   return (
-    <main className="flex min-h-[100dvh] flex-col bg-ink px-6 pb-8 pt-10 text-white">
-      <Logo dark sub="VS Go — Livreurs" />
+    <main className="flex min-h-[100dvh] flex-col bg-black px-6 pb-8 pt-8 text-white">
+      <AppLogo app="go" className="mx-auto h-28" />
       <div className="flex flex-1 flex-col items-center justify-center">
         <p className="mb-6 text-white/70">Entrez votre PIN</p>
         <div className="mb-3 flex gap-3">

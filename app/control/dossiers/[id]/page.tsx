@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
+import InfosDeclaration from "@/components/InfosDeclaration";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { errMsg, sb } from "@/lib/supabase";
@@ -81,6 +82,7 @@ export default function DossierDetail() {
               </Field>
             </div>
             {d.notes && <div className="sm:col-span-2 rounded-lg bg-amber-50 p-3 text-sm"><b>Notes :</b> {d.notes}</div>}
+            <div className="sm:col-span-2"><InfosDeclaration d={d} /></div>
           </Card>
           <div>
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-ink/60">Message client</h2>

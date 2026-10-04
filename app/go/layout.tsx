@@ -19,8 +19,9 @@ function Shell({ children, path }: { children: React.ReactNode; path: string }) 
   return (
     <Ctx.Provider value={profil}>
       <div className="mx-auto min-h-[100dvh] max-w-lg bg-paper pb-24">
-        <header className="sticky top-0 z-30 flex items-center justify-between bg-ink px-4 py-3">
-          <Logo dark sub={profil.nom ?? "VS Go"} />
+        <header className="sticky top-0 z-30 flex items-center justify-between bg-black px-4 py-2">
+          <Logo app="go" />
+          <span className="truncate px-2 text-sm font-semibold text-white/80">{profil.nom}</span>
           <button onClick={() => deconnexion("go")} className="text-sm text-white/60">Quitter</button>
         </header>
         <div className="px-4 py-4">{children}</div>

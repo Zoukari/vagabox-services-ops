@@ -6,7 +6,7 @@ Livraison à domicile des bagages récupérés en compagnie aérienne — Djibou
 |---|---|---|---|
 | **VS Control** | `/control` | Admin Vagabox | Email + mot de passe |
 | **VS Go** | `/go` | Livreurs (mobile) | PIN 6 chiffres |
-| **VS Track** | `/track` | Agents compagnies | Email + mot de passe (créé par l'admin) |
+| **VS Track** | `/track` | Agents compagnies / aéroport | Email + mot de passe (créé par l'admin). Type **Lecture** (suivi) ou **Saisie** (ex. Air Djibouti : déclare les bagages, toutes compagnies) |
 
 ## Stack
 Next.js 14 (App Router) · Supabase (Postgres, Auth, Storage, Edge Functions) · `@zxing/browser` (scan IATA) · Tailwind · Vercel
@@ -15,7 +15,8 @@ Next.js 14 (App Router) · Supabase (Postgres, Auth, Storage, Edge Functions) ·
 Projet `vagabox-services-ops` (`ntpxobakaprkmfiiiokr`, eu-central-1) — déjà provisionné.
 
 - `supabase/migrations/` — schéma, RLS, durcissement (déjà appliqués)
-- **`20261001000004_forfait_compta.sql` — À EXÉCUTER dans le SQL Editor** : mode forfait (`zero` / `reparti`), colonnes système + source dans `comptabilite`, une saisie par jour
+- **`20261004000005_declaration_bagages.sql` — À EXÉCUTER dans le SQL Editor** : comptes VS Track « saisie », formulaire de déclaration, RPC `declarer_bagage` / `definir_type_track`
+- `20261001000004_forfait_compta.sql` — appliqué.  dans le SQL Editor** : mode forfait (`zero` / `reparti`), colonnes système + source dans `comptabilite`, une saisie par jour
 - `supabase/functions/livreur-auth` — PIN → session (4h côté app, anti brute-force 8 essais / 15 min / IP)
 - `supabase/functions/admin-users` — création admin / livreurs / comptes compagnie, reset PIN & mot de passe
 

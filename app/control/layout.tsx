@@ -43,20 +43,20 @@ function Shell({ children, path }: { children: React.ReactNode; path: string }) 
 
   return (
     <div className="min-h-screen lg:flex">
-      <aside className="hidden w-60 shrink-0 flex-col bg-ink p-4 lg:flex lg:fixed lg:inset-y-0">
-        <Logo dark sub="VS Control" />
-        <div className="mt-8 flex-1">{nav}</div>
+      <aside className="hidden w-60 shrink-0 flex-col bg-black p-4 lg:flex lg:fixed lg:inset-y-0">
+        <Logo app="control" className="justify-center" />
+        <div className="mt-6 flex-1">{nav}</div>
         <div className="border-t border-white/10 pt-3 text-xs text-white/50">
           {profil.nom}
           <button onClick={() => deconnexion("control")} className="mt-1 block text-white/70 hover:text-accent">Déconnexion</button>
         </div>
       </aside>
-      <header className="sticky top-0 z-30 flex items-center justify-between bg-ink px-4 py-3 lg:hidden">
-        <Logo dark sub="VS Control" />
+      <header className="sticky top-0 z-30 flex items-center justify-between bg-black px-4 py-2 lg:hidden">
+        <Logo app="control" />
         <button onClick={() => setMenu(!menu)} className="rounded-lg px-3 py-1.5 text-white ring-1 ring-white/20">☰</button>
       </header>
       {menu && (
-        <div className="fixed inset-x-0 top-[60px] z-30 bg-ink p-4 shadow-xl lg:hidden">
+        <div className="fixed inset-x-0 top-[72px] z-30 bg-black p-4 shadow-xl lg:hidden">
           {nav}
           <button onClick={() => deconnexion("control")} className="mt-3 px-3 text-sm text-white/70">Déconnexion</button>
         </div>

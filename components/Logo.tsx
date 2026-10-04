@@ -1,6 +1,23 @@
 import { cx } from "@/lib/utils";
 
-export default function Logo({ dark, sub, className }: { dark?: boolean; sub?: string; className?: string }) {
+export type AppLogo = "control" | "go" | "track";
+const ALT: Record<AppLogo, string> = { control: "Vagabox VS Control", go: "Vagabox VS Go", track: "Vagabox VS Track" };
+
+/** Logo officiel d'une interface (fond noir intégré → à poser sur fond noir). */
+export function AppLogo({ app, className }: { app: AppLogo; className?: string }) {
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={`/logos/vs-${app}.webp`} alt={ALT[app]} className={cx("h-14 w-auto select-none", className)} draggable={false} />;
+}
+
+export default function Logo({ dark, sub, className, app }: { dark?: boolean; sub?: string; className?: string; app?: AppLogo }) {
+  if (app) {
+    return (
+      <div className={cx("flex items-center gap-3", className)}>
+        <AppLogo app={app} />
+        {sub && <span className="hidden text-xs font-semibold uppercase tracking-widest text-white/60 sm:block">{sub}</span>}
+      </div>
+    );
+  }
   return (
     <div className={cx("flex items-center gap-2.5", className)}>
       <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-ink">

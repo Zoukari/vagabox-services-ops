@@ -14,6 +14,11 @@ export interface DossierVue {
   created_at: string; updated_at: string; en_retard: boolean;
   client_nom: string; client_prenom: string | null; client_telephone: string; client_adresse: string | null;
   compagnie_nom: string; compagnie_code: string | null; livreur_nom: string | null;
+  // Déclaration bagage (VS Track saisie)
+  nb_valises?: number; tags_iata?: string[]; numero_pir?: string | null; numero_vol?: string | null; date_vol?: string | null;
+  provenance?: string | null; type_incident?: TypeIncident | null; description_bagages?: string | null; contenu?: string | null;
+  declare_par?: string | null; declare_le?: string | null; client_email?: string | null;
 }
+export type TypeIncident = "retarde" | "endommage" | "perdu" | "autre";
 
 export interface Historique { id: string; dossier_id: string; statut: Statut; livreur_id: string | null; commentaire: string | null; photo_url: string | null; timestamp: string }

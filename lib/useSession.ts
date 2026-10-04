@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { App, sb } from "./supabase";
 
-export interface Profil { id: string; role: "admin" | "livreur" | "compagnie"; nom: string | null; compagnie_id: string | null; livreur_id: string | null }
+export interface Profil { id: string; role: "admin" | "livreur" | "compagnie"; nom: string | null; compagnie_id: string | null; livreur_id: string | null; type_track?: "lecture" | "saisie" }
 
 export const GO_EXPIRY_KEY = "vs-go-expires";
 
