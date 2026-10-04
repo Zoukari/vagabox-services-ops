@@ -42,6 +42,10 @@ input[type="date"], input[type="month"] { min-height: 2.75rem; }
 .dark input[type="date"]::-webkit-calendar-picker-indicator,
 .dark input[type="month"]::-webkit-calendar-picker-indicator { filter: invert(1); }
 
+/* Évite qu'un contenu large fasse déborder une grille (mobile) */
+.grid > * { min-width: 0; }
+img, video { max-width: 100%; }
+
 /* Tableaux */
 .tbl { @apply w-full text-left text-sm; }
 html[dir="rtl"] .tbl { text-align: right; }

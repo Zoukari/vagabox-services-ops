@@ -62,8 +62,8 @@ export default function BarcodeScanner({ onResult, actif = true }: { onResult: (
       <form onSubmit={(e) => { e.preventDefault(); if (manuel.trim()) onResult(manuel.trim()); }} className="flex gap-2">
         <input value={manuel} onChange={(e) => setManuel(e.target.value)} placeholder="Saisie manuelle : n° tag ou dossier"
           inputMode="text" autoCapitalize="characters"
-          className="h-12 flex-1 rounded-xl border border-black/10 bg-white px-3.5 font-mono text-base outline-none transition focus:border-accent focus:shadow-glow" />
-        <button className="h-12 rounded-xl bg-navy px-5 font-semibold text-snow">OK</button>
+          className="h-12 min-w-0 flex-1 rounded-xl border border-black/10 bg-white px-3.5 font-mono text-base outline-none transition focus:border-accent focus:shadow-glow" />
+        <button className="h-12 shrink-0 rounded-xl bg-navy px-5 font-semibold text-snow">OK</button>
       </form>
     </div>
   );

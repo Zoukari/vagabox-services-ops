@@ -35,7 +35,7 @@ export default function Clients() {
         <Button onClick={() => setEdit({})}>+ Nouveau client</Button>
       </PageHeader>
       <Input placeholder="Rechercher nom, téléphone, quartier…" value={q} onChange={(e) => setQ(e.target.value)} className="mb-4 max-w-md" />
-      <Card className="overflow-x-auto">
+      <Card className="overflow-x-auto overscroll-x-contain">
         {!filtres ? <Loading /> : filtres.length === 0 ? <Empty>Aucun client</Empty> : (
           <table className="tbl">
             <thead><tr><th>Nom</th><th>Téléphone</th><th>Quartier</th><th>Adresse</th><th>Créé</th><th /></tr></thead>

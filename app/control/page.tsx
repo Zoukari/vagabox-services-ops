@@ -83,7 +83,7 @@ export default function Dashboard() {
 
 function Bloc({ titre, items, timer, vide = "Aucun dossier" }: { titre: string; items: DossierVue[]; timer?: boolean; vide?: string }) {
   return (
-    <Card>
+    <Card className="min-w-0 overflow-hidden">
       <div className="flex items-center justify-between border-b border-black/5 px-4 py-3">
         <h2 className="font-bold">{titre}</h2><span className="text-sm text-ink/50">{items.length}</span>
       </div>
@@ -92,11 +92,11 @@ function Bloc({ titre, items, timer, vide = "Aucun dossier" }: { titre: string; 
           {items.map((d) => (
             <li key={d.id}>
               <Link href={`/control/dossiers/${d.id}`} className="flex items-center justify-between gap-2 px-4 py-2.5 hover:bg-black/[0.02]">
-                <div className="min-w-0">
-                  <div className="font-mono text-sm font-semibold">{d.numero_dossier}</div>
+                <div className="min-w-0 flex-1">
+                  <div className="truncate font-mono text-sm font-semibold">{d.numero_dossier}</div>
                   <div className="truncate text-xs text-ink/60">{nomComplet(d.client_nom, d.client_prenom)} · {d.quartier} · {d.compagnie_code ?? d.compagnie_nom}{d.livreur_nom && ` · ${d.livreur_nom}`}</div>
                 </div>
-                {timer ? <Timer depuis={d.en_livraison_depuis} /> : <StatutBadge statut={d.statut} />}
+                <span className="shrink-0">{timer ? <Timer depuis={d.en_livraison_depuis} /> : <StatutBadge statut={d.statut} />}</span>
               </Link>
             </li>
           ))}

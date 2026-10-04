@@ -83,8 +83,8 @@ function Inner() {
         )}
         {d.statut === "en_livraison" && (
           <div className="grid grid-cols-2 gap-2">
-            <Button size="lg" variant="success" onClick={() => setAction("livre")}>✓ Livré</Button>
-            <Button size="lg" variant="danger" onClick={() => setAction("non_trouve")}>✕ Non trouvé</Button>
+            <Button size="lg" variant="success" className="whitespace-nowrap px-3" onClick={() => setAction("livre")}>✓ Livré</Button>
+            <Button size="lg" variant="danger" className="whitespace-nowrap px-3" onClick={() => setAction("non_trouve")}>✕ Non trouvé</Button>
           </div>
         )}
         {d.statut !== "livre" && (

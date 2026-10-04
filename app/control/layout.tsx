@@ -69,18 +69,18 @@ function Shell({ children, path }: { children: React.ReactNode; path: string }) 
       </aside>
 
       <header className="sticky top-0 z-40 flex items-center justify-between border-b border-black/[0.06] bg-white/85 px-4 py-2 backdrop-blur-xl lg:hidden">
-        <Link href="/control"><AppLogo app="control" className="h-12 w-auto" /></Link>
+        <Link href="/control"><AppLogo app="control" className="h-14 w-auto" /></Link>
         <button onClick={() => setMenu(!menu)} className="flex h-10 w-10 items-center justify-center rounded-xl border border-black/10 transition active:scale-95" aria-label="Menu">
           <Icon name={menu ? "close" : "menu"} />
         </button>
       </header>
       {menu && (
-        <div className="fixed inset-x-0 top-[65px] z-40 animate-fade-in border-b border-black/10 bg-white p-4 shadow-lift lg:hidden">
+        <div className="fixed inset-x-0 top-[73px] z-40 max-h-[calc(100dvh-73px)] overflow-y-auto animate-fade-in border-b border-black/10 bg-white p-4 shadow-lift lg:hidden">
           {nav}
           <div className="mt-4">{user}</div>
         </div>
       )}
-      <main key={path} className="min-w-0 flex-1 animate-fade-up px-4 py-6 lg:ml-64 lg:px-10 lg:py-8 lg:rtl:ml-0 lg:rtl:mr-64">{children}</main>
+      <main key={path} className="min-w-0 flex-1 animate-fade-up px-4 pb-28 pt-6 sm:pb-10 lg:ml-64 lg:px-10 lg:py-8 lg:rtl:ml-0 lg:rtl:mr-64">{children}</main>
     </div>
   );
 }

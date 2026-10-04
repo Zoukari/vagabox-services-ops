@@ -13,12 +13,18 @@ export const telComplet = (t: Tel) => {
 /** Sélecteur de pays (indicatif, liste déroulante) + numéro */
 export default function PhoneInput({ value, onChange, required }: { value: Tel; onChange: (t: Tel) => void; required?: boolean }) {
   const cls = "h-11 rounded-xl border border-black/10 bg-white px-2.5 text-sm text-ink outline-none transition hover:border-black/20 focus:border-accent focus:shadow-glow";
+  const pays = PAYS.find((p) => p.indicatif === value.indicatif) ?? PAYS[0];
   return (
     <div className="flex gap-2" dir="ltr">
-      <select aria-label="Pays" value={value.indicatif} onChange={(e) => onChange({ ...value, indicatif: e.target.value })}
-        className={cx(cls, "w-[45%] max-w-[11.5rem] shrink-0 pr-8")}>
-        {PAYS.map((p) => <option key={p.code} value={p.indicatif}>{p.drapeau} {p.nom} +{p.indicatif}</option>)}
-      </select>
+      <div className={cx(cls, "relative flex w-[6.75rem] shrink-0 items-center gap-1.5 pr-7 focus-within:border-accent focus-within:shadow-glow")}>
+        <span className="text-lg leading-none">{pays.drapeau}</span>
+        <span className="font-semibold tabular-nums" data-no-i18n>+{pays.indicatif}</span>
+        <svg viewBox="0 0 24 24" className="pointer-events-none absolute right-2.5 h-3 w-3 text-ink/40" fill="none" stroke="currentColor" strokeWidth="3"><path d="m6 9 6 6 6-6" /></svg>
+        <select aria-label="Pays" value={value.indicatif} onChange={(e) => onChange({ ...value, indicatif: e.target.value })}
+          className="absolute inset-0 h-full w-full cursor-pointer opacity-0">
+          {PAYS.map((p) => <option key={p.code} value={p.indicatif}>{p.drapeau} {p.nom} +{p.indicatif}</option>)}
+        </select>
+      </div>
       <input type="tel" inputMode="tel" size={8} required={required} value={value.numero}
         onChange={(e) => onChange({ ...value, numero: e.target.value.replace(/[^\d\s]/g, "") })}
         placeholder={value.indicatif === "253" ? "77 12 34 56" : "Numéro"}

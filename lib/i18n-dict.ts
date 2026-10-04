@@ -355,6 +355,7 @@ export const DICT: Record<string, [string, string]> = {
   "Valise rigide noire Samsonite 70 cm + sac bleu": ["Black hard-shell Samsonite 70 cm + blue bag", "حقيبة سامسونايت صلبة سوداء 70 سم + حقيبة زرقاء"],
   "Login email / mot de passe (optionnel)": ["Email / password login (optional)", "الدخول بالبريد / كلمة المرور (اختياري)"],
   "Statistiques": ["Statistics", "الإحصاءات"],
+  "Déclarer": ["Declare", "تصريح"],
   "Un compte administrateur existe déjà. Connectez-vous avec son email, ou réinitialisez son mot de passe depuis Supabase.": ["An administrator account already exists. Sign in with its email, or reset its password from Supabase.", "يوجد حساب مسؤول بالفعل. سجّل الدخول ببريده الإلكتروني أو أعد تعيين كلمة المرور من Supabase."],
 };
 

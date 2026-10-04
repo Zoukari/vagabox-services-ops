@@ -38,7 +38,7 @@ export default function Livreurs() {
       <PageHeader title="Livreurs" sub="Connexion VS Go par PIN 6 chiffres (unique par livreur)">
         <Button onClick={() => setModal(true)}>+ Nouveau livreur</Button>
       </PageHeader>
-      <Card className="overflow-x-auto">
+      <Card className="overflow-x-auto overscroll-x-contain">
         {!rows ? <Loading /> : rows.length === 0 ? <Empty>Aucun livreur</Empty> : (
           <table className="tbl">
             <thead><tr><th>Nom</th><th>Téléphone</th><th>Dossiers en cours</th><th>Statut</th><th>Depuis</th><th /></tr></thead>

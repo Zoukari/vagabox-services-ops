@@ -73,7 +73,7 @@ export default function NouveauDossier() {
           <Field label="Tag IATA (code-barres)">
             <div className="flex gap-2">
               <Input value={f.tag_iata} onChange={(e) => setF({ ...f, tag_iata: e.target.value })} className="font-mono" placeholder="ex: 0071123456" />
-              <Button type="button" variant="dark" onClick={() => setScan(true)}>📷 Scanner</Button>
+              <Button type="button" variant="dark" className="shrink-0 whitespace-nowrap" onClick={() => setScan(true)}>📷 <span className="hidden sm:inline">Scanner</span></Button>
             </div>
           </Field>
           <Field label="N° dossier" hint="Laisser vide pour génération automatique (VS-AAMMJJ-0001)">

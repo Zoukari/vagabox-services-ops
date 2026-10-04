@@ -101,7 +101,7 @@ export default function Comptabilite() {
         <Kpi label="Montant système" value={<span className="text-2xl">{fdj(sysF)}</span>} sub="dossiers livrés × prix" />
         <Kpi label="Écart saisi − système" value={<span className="text-2xl">{fdj(ecart)}</span>} tone={ecart === 0 ? "text-ink" : "text-amber-700"} />
       </div>
-      <Card className="overflow-x-auto">
+      <Card className="overflow-x-auto overscroll-x-contain">
         {!rows ? <Loading /> : rows.length === 0 ? <Empty>Aucune saisie ce mois-ci — lancez le calcul auto ou une saisie manuelle</Empty> : (
           <table className="tbl">
             <thead><tr>

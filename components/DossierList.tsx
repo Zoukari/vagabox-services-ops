@@ -62,7 +62,7 @@ export default function DossierList({ app, basePath, showCompagnie = true, showL
 
   return (
     <div className="space-y-4">
-      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-6">
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6">
         <Input placeholder="Rechercher n°, tag, client, tél…" value={q} onChange={(e) => setQ(e.target.value)} className="lg:col-span-2" />
         <Select value={statut} onChange={(e) => setStatut(e.target.value)}>
           <option value="">Tous statuts</option>
@@ -82,7 +82,7 @@ export default function DossierList({ app, basePath, showCompagnie = true, showL
             {livreurs.map((l) => <option key={l.id} value={l.id}>{l.nom}</option>)}
           </Select>
         )}
-        <div className="flex gap-2">
+        <div className="grid grid-cols-2 gap-2 sm:col-span-2 lg:col-span-2">
           <Input type="date" value={du} onChange={(e) => setDu(e.target.value)} title="Du" />
           <Input type="date" value={au} onChange={(e) => setAu(e.target.value)} title="Au" />
         </div>
