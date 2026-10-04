@@ -6,15 +6,15 @@ import Link from "next/link";
 import { errMsg, sb } from "@/lib/supabase";
 import { Statut, STATUTS } from "@/lib/constants";
 import { DossierVue } from "@/lib/types";
-import { nomComplet } from "@/lib/utils";
-import { Alert, Button, Loading, Modal, StatutBadge, Textarea } from "@/components/ui";
+import { dateHeure, nomComplet } from "@/lib/utils";
+import { Alert, Button, Field, Input, Loading, Modal, StatutBadge, Textarea } from "@/components/ui";
 import StatusTimeline from "@/components/StatusTimeline";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import PhotoUpload from "@/components/PhotoUpload";
 import BarcodeScanner from "@/components/BarcodeScanner";
 import Timer from "@/components/Timer";
 
-type Action = "recupere" | "en_livraison" | "livre" | "non_trouve" | "signalement";
+type Action = "recupere" | "en_livraison" | "livre" | "non_trouve" | "replanifie" | "signalement";
 
 function Inner() {
   const { id } = useParams<{ id: string }>();
@@ -85,7 +85,11 @@ function Inner() {
           <div className="grid grid-cols-2 gap-2">
             <Button size="lg" variant="success" className="whitespace-nowrap px-3" onClick={() => setAction("livre")}>✓ Livré</Button>
             <Button size="lg" variant="danger" className="whitespace-nowrap px-3" onClick={() => setAction("non_trouve")}>✕ Non trouvé</Button>
+            <Button size="lg" variant="outline" className="col-span-2 whitespace-nowrap border-purple-300 text-purple-700 dark:text-purple-300" onClick={() => setAction("replanifie")}>📅 Replanifier</Button>
           </div>
+        )}
+        {d.statut === "non_trouve" && (
+          <Button size="lg" variant="outline" className="w-full border-purple-300 text-purple-700 dark:text-purple-300" onClick={() => setAction("replanifie")}>📅 Replanifier la livraison</Button>
         )}
         {d.statut !== "livre" && (
           <Button variant="outline" className="w-full" onClick={() => setAction("signalement")}>⚠ Signalement</Button>
@@ -110,7 +114,7 @@ function Inner() {
 
 const TITRES: Record<Action, string> = {
   recupere: "Récupérer le bagage", en_livraison: "Démarrer", livre: "Confirmer la livraison",
-  non_trouve: "Client non trouvé", signalement: "Signalement",
+  non_trouve: "Client non trouvé", replanifie: "Replanifier la livraison", signalement: "Signalement",
 };
 
 function ActionModal({ action, dossier, scanInitial, onClose, onDone }: {
@@ -146,12 +150,15 @@ function ActionModal({ action, dossier, scanInitial, onClose, onDone }: {
   }, [scanIdx, scans]);
   const tagOk = tousOk;
   const photoRequise = action === "recupere" || action === "livre";
-  const commentRequis = action === "non_trouve" || action === "signalement";
-  const pret = (!photoRequise || photo) && (!commentRequis || commentaire.trim()) && (action !== "recupere" || tagOk || verifManuelle);
+  const commentRequis = action === "non_trouve" || action === "signalement" || action === "replanifie";
+  const [quand, setQuand] = useState("");
+  const pret = (!photoRequise || photo) && (!commentRequis || commentaire.trim()) && (action !== "recupere" || tagOk || verifManuelle)
+    && (action !== "replanifie" || quand);
 
   async function valider() {
     setLoading(true); setErr("");
     let com = commentaire.trim() || null;
+    if (action === "replanifie") com = [`Prochain passage : ${dateHeure(new Date(quand).toISOString())}`, com].filter(Boolean).join(" — ");
     if (action === "recupere") {
       const lus = scans.filter(Boolean) as string[];
       if (lus.length) com = [`Tags scannés (${lus.length}/${nbValises}) : ${lus.join(", ")}`, com].filter(Boolean).join(" — ");
@@ -215,9 +222,15 @@ function ActionModal({ action, dossier, scanInitial, onClose, onDone }: {
             label={action === "livre" ? "📷 Photo client + valise (obligatoire)" : nbValises > 1 ? "📷 Photo des valises (obligatoire)" : "📷 Photo valise (obligatoire)"} />
         )}
         {action === "signalement" && <PhotoUpload app="go" dossier={dossier.id} onUploaded={setPhoto} label="📷 Photo (optionnelle)" />}
+        {action === "replanifie" && (
+          <Field label="Prochain passage (date et heure)">
+            <Input type="datetime-local" required value={quand} min={new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16)}
+              onChange={(e) => setQuand(e.target.value)} />
+          </Field>
+        )}
         {(commentRequis || action === "livre") && (
           <Textarea rows={3} value={commentaire} onChange={(e) => setCommentaire(e.target.value)}
-            placeholder={action === "non_trouve" ? "Que s'est-il passé ? (injoignable, absent, adresse introuvable…)" : action === "signalement" ? "Décrivez le problème (bagage abîmé, client refuse…)" : "Commentaire (optionnel)"} />
+            placeholder={action === "replanifie" ? "Motif (client absent, demande du client, nouvelle adresse…)" : action === "non_trouve" ? "Que s'est-il passé ? (injoignable, absent, adresse introuvable…)" : action === "signalement" ? "Décrivez le problème (bagage abîmé, client refuse…)" : "Commentaire (optionnel)"} />
         )}
         <Alert>{err}</Alert>
         <Button size="lg" className="w-full" disabled={!pret} loading={loading} onClick={valider}
