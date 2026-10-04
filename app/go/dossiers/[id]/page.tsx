@@ -158,8 +158,16 @@ function ActionModal({ action, dossier, scanInitial, onClose, onDone }: {
       if (!tagOk && verifManuelle) com = ["Tags vérifiés manuellement", com].filter(Boolean).join(" — ");
     }
     const { error } = await sb("go").rpc("changer_statut", { p_dossier: dossier.id, p_statut: action, p_commentaire: com, p_photo_url: photo });
+    if (error) { setLoading(false); return setErr(errMsg(error)); }
+    // Récupéré → la livraison démarre tout de suite (timer 1h)
+    if (action === "recupere") {
+      const { error: e2 } = await sb("go").rpc("changer_statut", { p_dossier: dossier.id, p_statut: "en_livraison" });
+      setLoading(false);
+      navigator.vibrate?.(60);
+      if (e2) { setErr(errMsg(e2)); return; }
+      return onDone("en_livraison" as Action);
+    }
     setLoading(false);
-    if (error) return setErr(errMsg(error));
     navigator.vibrate?.(60);
     onDone(action);
   }
@@ -214,7 +222,7 @@ function ActionModal({ action, dossier, scanInitial, onClose, onDone }: {
         <Alert>{err}</Alert>
         <Button size="lg" className="w-full" disabled={!pret} loading={loading} onClick={valider}
           variant={action === "non_trouve" ? "danger" : action === "livre" ? "success" : "primary"}>
-          Valider — {STATUTS[action].label}
+          {action === "recupere" ? "Valider — Récupéré · lancer le timer 1h" : <>Valider — {STATUTS[action].label}</>}
         </Button>
       </div>
     </Modal>

@@ -90,7 +90,7 @@ export default function NouveauDossier() {
           </Field>
           <Field label="Livreur">
             <Select value={f.livreur_id} onChange={(e) => setF({ ...f, livreur_id: e.target.value })}>
-              <option value="">— Non assigné —</option>
+              <option value="">— Automatique (livreur le moins chargé) —</option>
               {livreurs.map((l) => <option key={l.id} value={l.id}>{l.nom}</option>)}
             </Select>
           </Field>
