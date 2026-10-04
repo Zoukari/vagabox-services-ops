@@ -118,17 +118,33 @@ function ActionModal({ action, dossier, scanInitial, onClose, onDone }: {
 }) {
   const [photo, setPhoto] = useState<string | null>(null);
   const [commentaire, setCommentaire] = useState("");
-  const [scan, setScan] = useState<string | null>(scanInitial);
-  const [scanOuvert, setScanOuvert] = useState(false);
   const [verifManuelle, setVerifManuelle] = useState(false);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
 
-  const normal = (s: string) => s.replace(/\D/g, "").slice(-6);
+  // Un tag par valise : on scanne chaque valise déclarée
+  const normal = (x: string) => x.replace(/\D/g, "").slice(-6) || x.toUpperCase();
   const tagsAttendus = Array.from(new Set([dossier.tag_iata, ...(dossier.tags_iata ?? [])].filter(Boolean) as string[]));
-  const tagOk = !tagsAttendus.length || (scan && tagsAttendus.some((t) => scan === t || normal(scan) === normal(t)));
-  const onScan = useCallback((c: string) => { setScan(c); setScanOuvert(false); }, []);
+  const nbValises = Math.max(dossier.nb_valises ?? 1, tagsAttendus.length, 1);
+  const [scans, setScans] = useState<(string | null)[]>(() => Array.from({ length: nbValises }, (_, i) => (i === 0 ? scanInitial : null)));
+  const [scanIdx, setScanIdx] = useState<number | null>(null);
+  const [doublon, setDoublon] = useState("");
+  const correspond = (c: string) => !tagsAttendus.length || tagsAttendus.some((t) => c === t || normal(c) === normal(t));
+  const slotOk = (c: string | null) => !!c && correspond(c);
+  const tousOk = scans.every(slotOk);
+  const nbOk = scans.filter(slotOk).length;
 
+  const onScan = useCallback((c: string) => {
+    setDoublon("");
+    const idx = scanIdx ?? 0;
+    if (scans.some((x, i) => i !== idx && x && normal(x) === normal(c))) { setDoublon(c); return; }
+    const next = scans.map((x, i) => (i === idx ? c : x));
+    setScans(next);
+    const vide = next.findIndex((x) => !x);
+    setScanIdx(vide >= 0 ? vide : null);   // enchaîne sur la valise suivante
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scanIdx, scans]);
+  const tagOk = tousOk;
   const photoRequise = action === "recupere" || action === "livre";
   const commentRequis = action === "non_trouve" || action === "signalement";
   const pret = (!photoRequise || photo) && (!commentRequis || commentaire.trim()) && (action !== "recupere" || tagOk || verifManuelle);
@@ -136,8 +152,11 @@ function ActionModal({ action, dossier, scanInitial, onClose, onDone }: {
   async function valider() {
     setLoading(true); setErr("");
     let com = commentaire.trim() || null;
-    if (action === "recupere" && scan && !dossier.tag_iata) com = [`Tag scanné : ${scan}`, com].filter(Boolean).join(" — ");
-    if (action === "recupere" && !tagOk && verifManuelle) com = ["Tag vérifié manuellement", com].filter(Boolean).join(" — ");
+    if (action === "recupere") {
+      const lus = scans.filter(Boolean) as string[];
+      if (lus.length) com = [`Tags scannés (${lus.length}/${nbValises}) : ${lus.join(", ")}`, com].filter(Boolean).join(" — ");
+      if (!tagOk && verifManuelle) com = ["Tags vérifiés manuellement", com].filter(Boolean).join(" — ");
+    }
     const { error } = await sb("go").rpc("changer_statut", { p_dossier: dossier.id, p_statut: action, p_commentaire: com, p_photo_url: photo });
     setLoading(false);
     if (error) return setErr(errMsg(error));
@@ -150,26 +169,42 @@ function ActionModal({ action, dossier, scanInitial, onClose, onDone }: {
       <div className="space-y-4">
         {action === "recupere" && (
           <div className="space-y-2">
-            <div className="text-sm font-semibold">1. Scanner le tag bagage</div>
-            {scanOuvert ? <BarcodeScanner actif onResult={onScan} /> : (
-              <button onClick={() => setScanOuvert(true)}
-                className={`flex w-full items-center justify-between rounded-xl border-2 p-3 text-left ${tagOk && scan ? "border-green-400 bg-green-50" : scan ? "border-red-400 bg-red-50" : "border-dashed border-black/20"}`}>
-                <span className="text-sm font-semibold">{scan ? <>Tag : <span className="font-mono">{scan}</span></> : "📷 Scanner le code-barres"}</span>
-                <span className="text-sm">{scan ? (tagOk ? "✓" : "≠ dossier") : ""}</span>
-              </button>
+            <div className="flex items-center justify-between text-sm font-semibold">
+              <span>1. Scanner les tags ({nbValises} valise{nbValises > 1 ? "s" : ""})</span>
+              <span className={tagOk ? "text-green-600" : "text-ink/50"} data-no-i18n>{nbOk}/{nbValises}</span>
+            </div>
+            {scanIdx !== null && (
+              <div className="rounded-2xl border border-accent/30 p-2">
+                <div className="mb-2 px-1 text-xs font-bold uppercase tracking-wide text-accent">Valise {scanIdx + 1}</div>
+                <BarcodeScanner actif onResult={onScan} />
+                <button onClick={() => setScanIdx(null)} className="mt-2 w-full py-1 text-sm font-semibold text-ink/50">Fermer le scanner</button>
+              </div>
             )}
-            {dossier.tag_iata && !tagOk && (
-              <label className="flex items-center gap-2 text-sm text-ink/70">
-                <input type="checkbox" checked={verifManuelle} onChange={(e) => setVerifManuelle(e.target.checked)} />
-                J&apos;ai vérifié le tag visuellement ({dossier.tag_iata})
+            {doublon && <Alert kind="warn">Tag déjà scanné : {doublon}</Alert>}
+            <div className="space-y-2">
+              {scans.map((c, i) => (
+                <button key={i} onClick={() => setScanIdx(i)}
+                  className={`flex w-full items-center justify-between gap-2 rounded-xl border-2 p-3 text-left transition ${slotOk(c) ? "border-green-400 bg-green-50" : c ? "border-red-400 bg-red-50" : scanIdx === i ? "border-accent" : "border-dashed border-black/20"}`}>
+                  <span className="min-w-0 text-sm font-semibold">
+                    <span className="mr-2 text-ink/50">Valise {i + 1}</span>
+                    {c ? <span className="font-mono" data-no-i18n>{c}</span> : <span>📷 Scanner le code-barres</span>}
+                  </span>
+                  <span className="shrink-0 text-sm">{c ? (slotOk(c) ? "✓" : "≠ dossier") : ""}</span>
+                </button>
+              ))}
+            </div>
+            {tagsAttendus.length > 0 && !tagOk && (
+              <label className="flex items-start gap-2 text-sm text-ink/70">
+                <input type="checkbox" className="mt-0.5" checked={verifManuelle} onChange={(e) => setVerifManuelle(e.target.checked)} />
+                <span>J&apos;ai vérifié les tags visuellement <span className="font-mono" data-no-i18n>({tagsAttendus.join(", ")})</span></span>
               </label>
             )}
-            <div className="pt-2 text-sm font-semibold">2. Photo de la valise</div>
+            <div className="pt-2 text-sm font-semibold">2. Photo des valises</div>
           </div>
         )}
         {photoRequise && (
           <PhotoUpload app="go" dossier={dossier.id} onUploaded={setPhoto}
-            label={action === "livre" ? "📷 Photo client + valise (obligatoire)" : "📷 Photo valise (obligatoire)"} />
+            label={action === "livre" ? "📷 Photo client + valise (obligatoire)" : nbValises > 1 ? "📷 Photo des valises (obligatoire)" : "📷 Photo valise (obligatoire)"} />
         )}
         {action === "signalement" && <PhotoUpload app="go" dossier={dossier.id} onUploaded={setPhoto} label="📷 Photo (optionnelle)" />}
         {(commentRequis || action === "livre") && (

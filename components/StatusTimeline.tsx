@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { App, sb, signedUrls } from "@/lib/supabase";
 import { STATUTS } from "@/lib/constants";
 import { Historique } from "@/lib/types";
@@ -52,11 +53,12 @@ export default function StatusTimeline({ app, dossierId, refresh = 0 }: { app: A
           );
         })}
       </ol>
-      {zoom && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-night/80 p-4 backdrop-blur-sm" onClick={() => setZoom(null)}>
+      {zoom && createPortal(
+        <div className="fixed inset-0 z-[75] flex items-center justify-center bg-night/80 p-4 backdrop-blur-sm" onClick={() => setZoom(null)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={zoom} alt="Photo" className="max-h-full max-w-full rounded-lg" />
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );

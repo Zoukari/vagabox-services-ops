@@ -59,6 +59,8 @@ export default function BarcodeScanner({ onResult, actif = true }: { onResult: (
   const [manuel, setManuel] = useState("");
   const [lu, setLu] = useState<string | null>(null);
   const [analyse, setAnalyse] = useState(false);
+  const cb = useRef(onResult);
+  cb.current = onResult;   // toujours la dernière version, sans redémarrer la caméra
 
   const trouve = useCallback((brut: string) => {
     const code = brut.replace(/\s+/g, "").trim();
@@ -68,8 +70,8 @@ export default function BarcodeScanner({ onResult, actif = true }: { onResult: (
     dernier.current = { code, t: now };
     setLu(code); setInfo("");
     navigator.vibrate?.(80);
-    onResult(code);
-  }, [onResult]);
+    cb.current(code);
+  }, []);
 
   useEffect(() => {
     if (!actif) return;

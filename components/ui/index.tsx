@@ -1,5 +1,6 @@
 "use client";
-import { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes, TextareaHTMLAttributes, forwardRef, useEffect } from "react";
+import { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes, TextareaHTMLAttributes, forwardRef, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { cx } from "@/lib/utils";
 import { QUARTIERS, STATUTS, Statut } from "@/lib/constants";
 
@@ -129,8 +130,11 @@ export function Modal({ open, onClose, title, children, wide }: { open: boolean;
     document.body.style.overflow = "hidden";
     return () => { window.removeEventListener("keydown", h); document.body.style.overflow = ""; };
   }, [open, onClose]);
-  if (!open) return null;
-  return (
+  const [monte, setMonte] = useState(false);
+  useEffect(() => setMonte(true), []);
+  if (!open || !monte) return null;
+  // Portail vers <body> : la fenêtre échappe aux conteneurs animés (sinon elle reste coincée sous l'en-tête)
+  return createPortal(
     <div className="fixed inset-0 z-[70] flex animate-fade-in items-end justify-center bg-night/45 backdrop-blur-sm sm:items-center sm:p-4" onClick={onClose}>
       <div onClick={(e) => e.stopPropagation()}
         className={cx("max-h-[88vh] max-h-[88dvh] w-full animate-slide-up overflow-y-auto overscroll-contain rounded-t-3xl border border-black/10 bg-white p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] shadow-lift [-webkit-overflow-scrolling:touch] sm:animate-scale-in sm:rounded-3xl", wide ? "sm:max-w-2xl" : "sm:max-w-md")}>
@@ -141,7 +145,8 @@ export function Modal({ open, onClose, title, children, wide }: { open: boolean;
         </div>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

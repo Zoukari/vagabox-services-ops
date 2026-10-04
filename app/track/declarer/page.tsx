@@ -130,11 +130,11 @@ export default function Declarer() {
               </div>
             </Field>
             <div className="space-y-2">
-              <span className="block text-xs font-semibold uppercase tracking-wide text-ink/60">Tags IATA (un par valise)</span>
+              <span className="block text-xs font-semibold uppercase tracking-wide text-ink/60">Tags IATA (un par valise) *</span>
               {tags.map((t, i) => (
                 <div key={i} className="flex gap-2">
                   <span className="flex w-8 items-center justify-center text-sm font-semibold text-ink/50">{i + 1}</span>
-                  <Input value={t} onChange={(e) => setTags(tags.map((v, j) => (j === i ? e.target.value : v)))} className="font-mono" placeholder="0071123456" />
+                  <Input required value={t} onChange={(e) => setTags(tags.map((v, j) => (j === i ? e.target.value : v)))} className="font-mono" placeholder="0071123456" />
                   <Button type="button" variant="dark" onClick={() => setScanIdx(i)} title="Scanner">📷</Button>
                 </div>
               ))}

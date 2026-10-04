@@ -52,10 +52,10 @@ export default {
         "pulse-ring": { "0%": { transform: "scale(.9)", opacity: ".7" }, "100%": { transform: "scale(1.6)", opacity: "0" } },
       },
       animation: {
-        "fade-up": "fade-up .5s cubic-bezier(.2,.8,.2,1) both",
+        "fade-up": "fade-up .5s cubic-bezier(.2,.8,.2,1) backwards",
         "fade-in": "fade-in .4s ease both",
-        "scale-in": "scale-in .35s cubic-bezier(.2,.8,.2,1) both",
-        "slide-up": "slide-up .35s cubic-bezier(.2,.8,.2,1) both",
+        "scale-in": "scale-in .35s cubic-bezier(.2,.8,.2,1) backwards",
+        "slide-up": "slide-up .35s cubic-bezier(.2,.8,.2,1) backwards",
         float: "float 4s ease-in-out infinite",
         blob: "blob 18s ease-in-out infinite",
         "splash-logo": "splash-logo 3s cubic-bezier(.2,.8,.2,1) both",
