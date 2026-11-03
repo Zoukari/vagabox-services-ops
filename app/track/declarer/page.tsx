@@ -63,7 +63,7 @@ export default function Declarer() {
       <Card className="mx-auto max-w-lg p-8 text-center">
         <div className="text-5xl">✅</div>
         <h1 className="mt-3 text-xl font-bold">Bagage déclaré</h1>
-        <p className="mt-1 text-ink/60">Dossier transmis à Vagabox Services pour livraison.</p>
+        <p className="mt-1 text-ink/60">Dossier transmis à Vagabox Express pour livraison.</p>
         <div className="mt-4 rounded-xl bg-black/5 py-3 font-mono text-2xl font-bold">{ok.numero_dossier}</div>
         <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
           <Button onClick={nouvelle}>+ Nouvelle déclaration</Button>
@@ -75,7 +75,7 @@ export default function Declarer() {
 
   return (
     <>
-      <PageHeader title="Déclarer un bagage" sub="Bagage à livrer à domicile par Vagabox Services" />
+      <PageHeader title="Déclarer un bagage" sub="Bagage à livrer à domicile par Vagabox Express" />
       <form onSubmit={submit} className="grid gap-5 lg:grid-cols-2">
         <div className="min-w-0 space-y-5">
           <Card className="space-y-4 p-5">

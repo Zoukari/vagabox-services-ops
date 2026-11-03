@@ -5,8 +5,8 @@ import { ThemeProvider, THEME_SCRIPT } from "@/lib/theme";
 import FloatingControls from "@/components/FloatingControls";
 
 export const metadata: Metadata = {
-  title: "Vagabox Services — Opérations",
-  description: "Plateforme opérations Vagabox Services : VS Control, VS Go, VS Track",
+  title: "Vagabox Express — Opérations",
+  description: "Plateforme opérations Vagabox Express : VE Control, VE Go, VE Track",
   manifest: "/manifest.webmanifest",
 };
 export const viewport: Viewport = { themeColor: "#0B2A5B", width: "device-width", initialScale: 1, maximumScale: 1 };

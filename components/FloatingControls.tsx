@@ -12,7 +12,7 @@ export default function FloatingControls() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const path = usePathname() ?? "/";
-  // Sur mobile, au-dessus de la barre d'onglets de VS Go / VS Track
+  // Sur mobile, au-dessus de la barre d'onglets de VE Go / VE Track
   // Mobile : se cache quand on descend, revient quand on remonte (ne masque pas le contenu)
   const [cache, setCache] = useState(false);
   useEffect(() => {

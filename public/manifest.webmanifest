@@ -1,6 +1,6 @@
 {
-  "name": "Vagabox Services",
-  "short_name": "VS Go",
+  "name": "Vagabox Express",
+  "short_name": "VE Go",
   "start_url": "/go",
   "display": "standalone",
   "background_color": "#ffffff",

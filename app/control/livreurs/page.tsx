@@ -35,7 +35,7 @@ export default function Livreurs() {
 
   return (
     <>
-      <PageHeader title="Livreurs" sub="Connexion VS Go par PIN 6 chiffres (unique par livreur)">
+      <PageHeader title="Livreurs" sub="Connexion VE Go par PIN 6 chiffres (unique par livreur)">
         <Button onClick={() => setModal(true)}>+ Nouveau livreur</Button>
       </PageHeader>
       <Card className="overflow-x-auto overscroll-x-contain">
@@ -87,7 +87,7 @@ function NouveauLivreur({ open, onClose, onDone }: { open: boolean; onClose: () 
     <Modal open={open} onClose={fermer} title="Nouveau livreur">
       {cree ? (
         <div className="space-y-4 text-center">
-          <p>Livreur <b>{cree.nom}</b> créé. PIN de connexion VS Go :</p>
+          <p>Livreur <b>{cree.nom}</b> créé. PIN de connexion VE Go :</p>
           <div className="font-mono text-4xl font-bold tracking-[0.3em]">{cree.pin}</div>
           <Alert kind="warn">Notez-le maintenant : le PIN est stocké chiffré et ne pourra plus être affiché.</Alert>
           <Button className="w-full" onClick={fermer}>Terminé</Button>

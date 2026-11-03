@@ -28,7 +28,7 @@ export function useProfil(app: App, role: Profil["role"]) {
       if (!data || data.role !== role) { await client.auth.signOut(); router.replace(`/${app}/login?e=role`); return; }
       setProfil(data as Profil);
     })();
-    // VS Go : déconnexion automatique à l'expiration des 4h
+    // VE Go : déconnexion automatique à l'expiration des 4h
     const i = app === "go" ? setInterval(() => {
       let exp = 0;
       try { exp = Number(localStorage.getItem(GO_EXPIRY_KEY) ?? 0); } catch { /* ignore */ }

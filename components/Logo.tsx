@@ -2,7 +2,7 @@ import { cx } from "@/lib/utils";
 
 export type AppLogo = "control" | "go" | "track" | "global" | "mark";
 const ALT: Record<AppLogo, string> = {
-  control: "VS Control", go: "VS Go", track: "VS Track", global: "Vagabox Services", mark: "Vagabox Services",
+  control: "VE Control", go: "VE Go", track: "VE Track", global: "Vagabox Express", mark: "Vagabox Express",
 };
 
 /** Logos officiels (PNG/WebP transparents) */

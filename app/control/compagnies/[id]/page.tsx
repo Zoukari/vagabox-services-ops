@@ -41,7 +41,7 @@ export default function CompagnieDetail() {
     await sb("control").from("tarification").update({ actif: !t.actif }).eq("id", t.id); load();
   }
   async function supprimerUser(u: CieUser) {
-    if (!confirm(`Supprimer l'accès VS Track de ${u.email} ?`)) return;
+    if (!confirm(`Supprimer l'accès VE Track de ${u.email} ?`)) return;
     try { await callFn("control", "admin-users", { action: "delete_user", user_id: u.id }); load(); } catch (e: any) { alert(e.message); }
   }
   async function changerType(u: CieUser) {
@@ -98,7 +98,7 @@ export default function CompagnieDetail() {
 
         <Card>
           <div className="flex items-center justify-between border-b border-black/5 px-4 py-3">
-            <h2 className="font-bold">Accès VS Track</h2>
+            <h2 className="font-bold">Accès VE Track</h2>
             <Button size="sm" onClick={() => setModalUser(true)}>+ Compte agent</Button>
           </div>
           {!users ? <Loading /> : users.length === 0 ? <Empty>Aucun compte agent</Empty> : (

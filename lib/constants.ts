@@ -38,11 +38,11 @@ export const MESSAGES_WHATSAPP: Partial<Record<Statut, string>> = {
   a_recuperer:
     "Bonjour {nom_client}, votre valise (dossier {numero_dossier}) est arrivée à Djibouti. Notre livreur va la récupérer et vous la livrer très vite.",
   recupere:
-    "Bonjour {nom_client}, votre colis référence {numero_dossier} a été récupéré. Vagabox Services vous contactera pour la livraison.",
+    "Bonjour {nom_client}, votre colis référence {numero_dossier} a été récupéré. Vagabox Express vous contactera pour la livraison.",
   en_livraison:
     "Bonjour {nom_client}, votre colis {numero_dossier} est en route ! Notre livreur {livreur} arrive dans environ 1 heure.",
   livre:
-    "Bonjour {nom_client}, votre colis {numero_dossier} a bien été livré. Merci de faire confiance à Vagabox Services !",
+    "Bonjour {nom_client}, votre colis {numero_dossier} a bien été livré. Merci de faire confiance à Vagabox Express !",
   non_trouve:
     "Bonjour {nom_client}, notre livreur n'a pas pu vous joindre pour livrer votre colis {numero_dossier}. Nous allons replanifier.",
   replanifie:

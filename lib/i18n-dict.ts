@@ -1,8 +1,8 @@
 /** Dictionnaire FR → [EN, AR]. Clé = texte français exact affiché (sans emoji/symbole de tête ni « : » / « * » de fin). */
 export const DICT: Record<string, [string, string]> = {
   // ── Général / navigation ──
-  "Vagabox Services": ["Vagabox Services", "فاغابوكس سيرفيسز"],
-  "Vagabox Services — Opérations": ["Vagabox Services — Operations", "فاغابوكس سيرفيسز — العمليات"],
+  "Vagabox Express": ["Vagabox Express", "فاغابوكس إكسبريس"],
+  "Vagabox Express — Opérations": ["Vagabox Express — Operations", "فاغابوكس إكسبريس — العمليات"],
   "Plateforme opérations": ["Operations platform", "منصة العمليات"],
   "Livraison à domicile des bagages récupérés en compagnie — Djibouti.": ["Home delivery of baggage recovered from airlines — Djibouti.", "توصيل الأمتعة المستردة من شركات الطيران إلى المنازل — جيبوتي."],
   "Choisissez votre espace": ["Choose your workspace", "اختر مساحتك"],
@@ -136,7 +136,7 @@ export const DICT: Record<string, [string, string]> = {
   "Photo": ["Photo", "صورة"],
   "Commentaire": ["Comment", "تعليق"],
   "Commentaire (optionnel)": ["Comment (optional)", "تعليق (اختياري)"],
-  "2e tentative : le livreur pourra redémarrer la livraison depuis VS Go.": ["2nd attempt: the driver can restart the delivery from VS Go.", "المحاولة الثانية: يمكن للسائق إعادة بدء التوصيل من VS Go."],
+  "2e tentative : le livreur pourra redémarrer la livraison depuis VE Go.": ["2nd attempt: the driver can restart the delivery from VE Go.", "المحاولة الثانية: يمكن للسائق إعادة بدء التوصيل من VE Go."],
   "Supprimer": ["Delete", "حذف"],
   "Suppr.": ["Del.", "حذف"],
   "Modifier": ["Edit", "تعديل"],
@@ -163,7 +163,7 @@ export const DICT: Record<string, [string, string]> = {
   "Tag": ["Tag", "البطاقة"],
   "≠ dossier": ["≠ file", "≠ الملف"],
 
-  // ── VS Go ──
+  // ── VE Go ──
   "Temps restant": ["Time left", "الوقت المتبقي"],
   "Récupérer le bagage": ["Collect baggage", "استلام الأمتعة"],
   "Démarrer la livraison (timer 1h)": ["Start delivery (1h timer)", "بدء التوصيل (مؤقت ساعة)"],
@@ -218,7 +218,7 @@ export const DICT: Record<string, [string, string]> = {
   "0 FDJ par dossier": ["0 DJF per file", "0 فرنك لكل ملف"],
   "Réparti sur les dossiers livrés": ["Spread over delivered files", "موزّع على الملفات المسلّمة"],
   "Désactiver l'ancien tarif du même type": ["Disable the previous rate of the same type", "تعطيل التعرفة السابقة من النوع نفسه"],
-  "Accès VS Track": ["VS Track access", "الوصول إلى VS Track"],
+  "Accès VE Track": ["VE Track access", "الوصول إلى VE Track"],
   "Compte agent": ["Agent account", "حساب موظف"],
   "Compte agent compagnie": ["Airline agent account", "حساب موظف شركة الطيران"],
   "Aucun compte agent": ["No agent accounts", "لا توجد حسابات موظفين"],
@@ -243,7 +243,7 @@ export const DICT: Record<string, [string, string]> = {
   "Enregistrer le PIN": ["Save PIN", "حفظ الرمز"],
   "PIN mis à jour. Transmettez-le au livreur.": ["PIN updated. Give it to the driver.", "تم تحديث الرمز. سلّمه للسائق."],
   "Notez-le maintenant : le PIN est stocké chiffré et ne pourra plus être affiché.": ["Write it down now: the PIN is stored encrypted and cannot be shown again.", "دوّنه الآن: الرمز محفوظ مشفّرًا ولن يُعرض مجددًا."],
-  "créé. PIN de connexion VS Go :": ["created. VS Go login PIN:", "تم الإنشاء. رمز الدخول إلى VS Go:"],
+  "créé. PIN de connexion VE Go :": ["created. VE Go login PIN:", "تم الإنشاء. رمز الدخول إلى VE Go:"],
 
   // ── Comptabilité / rapports ──
   "Saisie journalière": ["Daily entry", "الإدخال اليومي"],
@@ -287,9 +287,9 @@ export const DICT: Record<string, [string, string]> = {
   "Section": ["Section", "القسم"],
   "Forfaits « 0 FDJ / dossier » non attribués aux livreurs ; forfaits « réparti » inclus.": ["“0 DJF / file” fees not attributed to drivers; “spread” fees included.", "اشتراكات «0 فرنك/ملف» غير منسوبة للسائقين؛ الاشتراكات «الموزّعة» مشمولة."],
 
-  // ── VS Track / déclaration ──
+  // ── VE Track / déclaration ──
   "Déclarer un bagage": ["Declare a bag", "التصريح بحقيبة"],
-  "Bagage à livrer à domicile par Vagabox Services": ["Baggage to be home-delivered by Vagabox Services", "أمتعة يوصلها فاغابوكس سيرفيسز إلى المنزل"],
+  "Bagage à livrer à domicile par Vagabox Express": ["Baggage to be home-delivered by Vagabox Express", "أمتعة يوصلها فاغابوكس إكسبريس إلى المنزل"],
   "Passager": ["Passenger", "المسافر"],
   "Téléphone (WhatsApp de préférence)": ["Phone (WhatsApp preferred)", "الهاتف (واتساب مفضّل)"],
   "Vol": ["Flight", "الرحلة"],
@@ -314,13 +314,13 @@ export const DICT: Record<string, [string, string]> = {
   "Remarques": ["Remarks", "ملاحظات"],
   "Enregistrer la déclaration": ["Save declaration", "حفظ التصريح"],
   "Bagage déclaré": ["Baggage declared", "تم التصريح بالأمتعة"],
-  "Dossier transmis à Vagabox Services pour livraison.": ["File sent to Vagabox Services for delivery.", "أُرسل الملف إلى فاغابوكس سيرفيسز للتوصيل."],
+  "Dossier transmis à Vagabox Express pour livraison.": ["File sent to Vagabox Express for delivery.", "أُرسل الملف إلى فاغابوكس إكسبريس للتوصيل."],
   "Nouvelle déclaration": ["New declaration", "تصريح جديد"],
   "Déclaration bagage": ["Baggage declaration", "تصريح الأمتعة"],
   "Déclaré le": ["Declared on", "صُرّح به في"],
   "Bagages déclarés": ["Declared baggage", "الأمتعة المصرّح بها"],
-  "Dossiers que vous avez saisis — statut mis à jour en temps réel par Vagabox Services": ["Files you entered — status updated live by Vagabox Services", "الملفات التي أدخلتها — تُحدَّث حالتها مباشرة من فاغابوكس سيرفيسز"],
-  "Lecture seule — mis à jour en temps réel par Vagabox Services": ["Read only — updated live by Vagabox Services", "قراءة فقط — تُحدَّث مباشرة من فاغابوكس سيرفيسز"],
+  "Dossiers que vous avez saisis — statut mis à jour en temps réel par Vagabox Express": ["Files you entered — status updated live by Vagabox Express", "الملفات التي أدخلتها — تُحدَّث حالتها مباشرة من فاغابوكس إكسبريس"],
+  "Lecture seule — mis à jour en temps réel par Vagabox Express": ["Read only — updated live by Vagabox Express", "قراءة فقط — تُحدَّث مباشرة من فاغابوكس إكسبريس"],
   "Numéro de téléphone invalide": ["Invalid phone number", "رقم الهاتف غير صالح"],
   "Valise": ["Bag", "حقيبة"],
 
@@ -346,7 +346,7 @@ export const DICT: Record<string, [string, string]> = {
   "Rien à signaler": ["Nothing to report", "لا شيء للإبلاغ"],
   "Signalements / non trouvés": ["Incidents / not found", "البلاغات / غير موجودة"],
   "dossier(s)": ["file(s)", "ملف"],
-  "Connexion VS Go par PIN 6 chiffres (unique par livreur)": ["VS Go login with a 6-digit PIN (unique per driver)", "الدخول إلى VS Go برمز من 6 أرقام (فريد لكل سائق)"],
+  "Connexion VE Go par PIN 6 chiffres (unique par livreur)": ["VE Go login with a 6-digit PIN (unique per driver)", "الدخول إلى VE Go برمز من 6 أرقام (فريد لكل سائق)"],
   "Appeler": ["Call", "اتصال"],
   "Menu": ["Menu", "القائمة"],
   "Dark mode": ["Dark mode", "الوضع الداكن"],
@@ -433,7 +433,7 @@ export const PATTERNS: [RegExp, (m: RegExpMatchArray, l: L) => string][] = [
   [/^Supprimer (.+) \? \(impossible si des dossiers existent\)$/, (m, l) => (l === "en" ? `Delete ${m[1]}? (not possible if files exist)` : `حذف ${m[1]}؟ (غير ممكن إذا وُجدت ملفات)`)],
   [/^Supprimer (.+) \? Ses dossiers seront désassignés\.$/, (m, l) => (l === "en" ? `Delete ${m[1]}? Their files will be unassigned.` : `حذف ${m[1]}؟ سيُلغى إسناد ملفاته.`)],
   [/^Supprimer définitivement le dossier (.+) \?$/, (m, l) => (l === "en" ? `Permanently delete file ${m[1]}?` : `حذف الملف ${m[1]} نهائيًا؟`)],
-  [/^Supprimer l'accès VS Track de (.+) \?$/, (m, l) => (l === "en" ? `Remove VS Track access for ${m[1]}?` : `إزالة وصول ${m[1]} إلى VS Track؟`)],
+  [/^Supprimer l'accès VE Track de (.+) \?$/, (m, l) => (l === "en" ? `Remove VE Track access for ${m[1]}?` : `إزالة وصول ${m[1]} إلى VE Track؟`)],
   [/^Supprimer la saisie du (.+) \?$/, (m, l) => (l === "en" ? `Delete the entry of ${m[1]}?` : `حذف إدخال ${m[1]}؟`)],
   [/^Supprimer (.+) \?$/, (m, l) => (l === "en" ? `Delete ${m[1]}?` : `حذف ${m[1]}؟`)],
   [/^1\. Scanner les tags \((\d+) valises?\)$/, (m, l) => (l === "en" ? `1. Scan the tags (${m[1]} bag${m[1] === "1" ? "" : "s"})` : `1. مسح البطاقات (${m[1]} حقيبة)`)],

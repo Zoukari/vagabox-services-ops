@@ -152,7 +152,7 @@ function StatutModal({ open, onClose, dossier, onDone }: { open: boolean; onClos
             </button>
           ))}
         </div>
-        {statut === "replanifie" && <Alert kind="warn">2e tentative : le livreur pourra redémarrer la livraison depuis VS Go.</Alert>}
+        {statut === "replanifie" && <Alert kind="warn">2e tentative : le livreur pourra redémarrer la livraison depuis VE Go.</Alert>}
         <Field label="Commentaire"><Textarea rows={2} value={commentaire} onChange={(e) => setCommentaire(e.target.value)} /></Field>
         <PhotoUpload app="control" dossier={dossier.id} label="Joindre une photo (optionnel)" onUploaded={setPhoto} />
         <Alert>{err}</Alert>

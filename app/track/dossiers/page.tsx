@@ -9,7 +9,7 @@ export default function Dossiers() {
   return (
     <>
       <PageHeader title={saisie ? "Bagages déclarés" : "Vos dossiers"}
-        sub={saisie ? "Dossiers que vous avez saisis — statut mis à jour en temps réel par Vagabox Services" : "Lecture seule — mis à jour en temps réel par Vagabox Services"} />
+        sub={saisie ? "Dossiers que vous avez saisis — statut mis à jour en temps réel par Vagabox Express" : "Lecture seule — mis à jour en temps réel par Vagabox Express"} />
       <DossierList app="track" basePath="/track/dossiers" showCompagnie={saisie} showLivreur={false} showPrix={false} />
     </>
   );

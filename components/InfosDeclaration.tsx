@@ -2,7 +2,7 @@ import { TYPES_INCIDENT } from "@/lib/constants";
 import { DossierVue } from "@/lib/types";
 import { dateCourte, dateHeure } from "@/lib/utils";
 
-/** Infos de la déclaration bagage (saisie VS Track) — n'affiche rien si le dossier n'en a pas */
+/** Infos de la déclaration bagage (saisie VE Track) — n'affiche rien si le dossier n'en a pas */
 export default function InfosDeclaration({ d, compact }: { d: DossierVue; compact?: boolean }) {
   const tags = (d.tags_iata ?? []).filter(Boolean);
   const lignes: [string, React.ReactNode][] = [
