@@ -15,7 +15,7 @@ export default function Dashboard() {
     const client = sb("control");
     const debut = debutJourISO();
     const [a, crees, livres] = await Promise.all([
-      client.from("dossiers_vue").select("*").in("statut", ["a_recuperer", "recupere", "en_livraison", "replanifie", "signalement", "non_trouve"])
+      client.from("dossiers_vue").select("*").in("statut", ["saisi", "a_recuperer", "recupere", "en_livraison", "replanifie", "signalement", "non_trouve"])
         .order("created_at", { ascending: false }),
       client.from("dossiers").select("id", { count: "exact", head: true }).gte("created_at", debut),
       client.from("dossiers").select("prix_fdj").eq("statut", "livre").gte("date_livraison", debut),
@@ -36,6 +36,7 @@ export default function Dashboard() {
   const retard = actifs.filter((d) => d.en_retard);
   const enLivraison = actifs.filter((d) => d.statut === "en_livraison");
   const aRecup = actifs.filter((d) => d.statut === "a_recuperer");
+  const enAttente = actifs.filter((d) => d.statut === "saisi");
   const nonAssignes = actifs.filter((d) => !d.livreur_id && d.statut !== "non_trouve");
   const signalements = actifs.filter((d) => d.statut === "signalement" || d.statut === "non_trouve");
 
@@ -76,6 +77,7 @@ export default function Dashboard() {
         <Bloc titre="Non assignés" items={nonAssignes} vide="Tous les dossiers ont un livreur" />
         <Bloc titre="Signalements / non trouvés" items={signalements} vide="Rien à signaler" />
         <Bloc titre="À récupérer" items={aRecup} />
+        <Bloc titre="En attente d'arrivée" items={enAttente} vide="Aucune valise en attente" />
       </div>
     </>
   );

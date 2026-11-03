@@ -77,6 +77,8 @@ html[dir="rtl"] .tbl { text-align: right; }
 .stagger > *:nth-child(n+7) { animation-delay: .32s }
 
 /* Pastilles de couleur en mode sombre (statuts, alertes) */
+.dark .bg-sky-100 { background: rgb(14 165 233 / .18) } .dark .text-sky-800 { color: #7dd3fc }
+.dark .bg-teal-100 { background: rgb(20 184 166 / .18) } .dark .text-teal-800 { color: #5eead4 }
 .dark .bg-yellow-100 { background: rgb(234 179 8 / .16) } .dark .text-yellow-800 { color: #fde047 }
 .dark .bg-blue-100 { background: rgb(59 130 246 / .18) } .dark .text-blue-800 { color: #93c5fd }
 .dark .bg-orange-100 { background: rgb(249 115 22 / .18) } .dark .text-orange-800 { color: #fdba74 }

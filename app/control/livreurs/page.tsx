@@ -16,7 +16,7 @@ export default function Livreurs() {
     const client = sb("control");
     const [{ data: l }, { data: d }] = await Promise.all([
       client.from("livreurs").select("id, nom, telephone, auth_user_id, actif, created_at").order("nom"),
-      client.from("dossiers").select("livreur_id").in("statut", ["a_recuperer", "recupere", "en_livraison", "replanifie"]),
+      client.from("dossiers").select("livreur_id").in("statut", ["saisi", "a_recuperer", "recupere", "en_livraison", "replanifie"]),
     ]);
     const cnt: Record<string, number> = {};
     (d ?? []).forEach((x) => { if (x.livreur_id) cnt[x.livreur_id] = (cnt[x.livreur_id] ?? 0) + 1; });

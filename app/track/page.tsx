@@ -33,7 +33,7 @@ export default function TrackDashboard() {
       <div className="stagger grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Kpi label="Dossiers confiés" value={rows.length} />
         <Kpi label="Livrés" value={livres} tone="text-green-600" sub={`${taux}% de réussite`} />
-        <Kpi label="En cours" value={n(["a_recuperer", "recupere", "en_livraison", "replanifie"])} tone="text-orange-600" />
+        <Kpi label="En cours" value={n(["saisi", "a_recuperer", "recupere", "en_livraison", "replanifie"])} tone="text-orange-600" />
         <Kpi label="Non trouvés" value={n(["non_trouve"])} tone="text-red-600" sub={n(["signalement"]) ? `${n(["signalement"])} signalement(s)` : undefined} />
       </div>
 

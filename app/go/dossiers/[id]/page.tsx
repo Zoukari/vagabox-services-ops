@@ -77,6 +77,12 @@ function Inner() {
 
       {/* Actions selon le statut */}
       <div className="space-y-2">
+        {d.statut === "saisi" && (
+          <div className="rounded-2xl border border-sky-200 bg-sky-50 p-4 text-center text-sm font-semibold text-sky-800 dark:border-white/10">
+            ⏳ En attente de l&apos;arrivée de la valise à l&apos;aéroport.<br />
+            <span className="font-normal opacity-80">Vous pourrez la récupérer dès que l&apos;arrivée est confirmée.</span>
+          </div>
+        )}
         {d.statut === "a_recuperer" && <Button size="lg" className="w-full" onClick={() => setAction("recupere")}>📦 Récupérer le bagage</Button>}
         {(d.statut === "recupere" || d.statut === "replanifie") && (
           <Button size="lg" className="w-full" variant="dark" onClick={demarrer}>🛵 Démarrer la livraison (timer 1h)</Button>

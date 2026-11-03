@@ -8,11 +8,17 @@ import { DossierVue } from "@/lib/types";
 import { dateHeure, nomComplet } from "@/lib/utils";
 import { Card, Loading, StatutBadge } from "@/components/ui";
 import StatusTimeline from "@/components/StatusTimeline";
+import ConfirmerArrivee from "@/components/ConfirmerArrivee";
+import { estSaisie, useTrackProfil } from "@/lib/trackContext";
 
 export default function TrackDossier() {
   const { id } = useParams<{ id: string }>();
   const [d, setD] = useState<DossierVue | null>(null);
-  useEffect(() => { sb("track").from("dossiers_vue").select("*").eq("id", id).single().then(({ data }) => setD(data as DossierVue)); }, [id]);
+  const [refresh, setRefresh] = useState(0);
+  const profil = useTrackProfil();
+  const charger = () => sb("track").from("dossiers_vue").select("*").eq("id", id).single().then(({ data }) => setD(data as DossierVue));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { charger(); }, [id]);
   if (!d) return <Loading />;
   return (
     <>
@@ -21,6 +27,12 @@ export default function TrackDossier() {
         <h1 className="font-mono text-2xl font-bold">{d.numero_dossier}</h1>
         <StatutBadge statut={d.statut} retard={d.en_retard} />
       </div>
+      {d.statut === "saisi" && (
+        <div className="mb-5 rounded-2xl border border-sky-200 bg-sky-50 p-4 dark:border-white/10">
+          <p className="text-sm font-semibold text-sky-800">Dossier saisi — en attente de l&apos;arrivée de la valise à l&apos;aéroport.</p>
+          {estSaisie(profil) && <div className="mt-3 max-w-md"><ConfirmerArrivee app="track" dossierId={d.id} nb={d.nb_valises} onDone={() => { charger(); setRefresh((r) => r + 1); }} /></div>}
+        </div>
+      )}
       <div className="grid gap-5 lg:grid-cols-3">
         <Card className="space-y-3 p-5">
           <Row l="Tag IATA" v={<span className="font-mono">{d.tag_iata ?? "—"}</span>} />
@@ -34,7 +46,7 @@ export default function TrackDossier() {
         </Card>
         <Card className="p-5 lg:col-span-2">
           <h2 className="mb-4 font-bold">Chronologie</h2>
-          <StatusTimeline app="track" dossierId={d.id} />
+          <StatusTimeline app="track" dossierId={d.id} refresh={refresh} />
         </Card>
       </div>
     </>

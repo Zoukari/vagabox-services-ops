@@ -19,6 +19,7 @@ export default function NouveauDossier() {
   const [recherche, setRecherche] = useState("");
   const [modalClient, setModalClient] = useState(false);
   const [scan, setScan] = useState(false);
+  const [dejaArrivee, setDejaArrivee] = useState(false);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
 
@@ -58,6 +59,7 @@ export default function NouveauDossier() {
       prix_fdj: f.prix_fdj ? Number(f.prix_fdj) : null,
       quartier: client.quartier,
       notes: f.notes || null,
+      ...(dejaArrivee ? { statut: "a_recuperer" } : {}),
     } as any).select("id").single();
     setLoading(false);
     if (error) return setErr(errMsg(error));
@@ -95,6 +97,10 @@ export default function NouveauDossier() {
             </Select>
           </Field>
           <Field label="Notes"><Textarea rows={2} value={f.notes} onChange={(e) => setF({ ...f, notes: e.target.value })} /></Field>
+          <label className="flex items-start gap-2 rounded-xl border border-black/10 p-3 text-sm">
+            <input type="checkbox" className="mt-0.5" checked={dejaArrivee} onChange={(e) => setDejaArrivee(e.target.checked)} />
+            <span><b>Valise déjà arrivée à l&apos;aéroport</b><br /><span className="text-ink/60">Sinon le dossier reste « Dossier saisi » jusqu&apos;à la confirmation d&apos;arrivée.</span></span>
+          </label>
         </Card>
 
         <Card className="space-y-4 p-5">

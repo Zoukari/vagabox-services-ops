@@ -9,7 +9,7 @@ import Timer from "@/components/Timer";
 import { cx } from "@/lib/utils";
 
 const ONGLETS = [
-  { k: "afaire", label: "À faire", statuts: ["a_recuperer", "recupere", "replanifie"] },
+  { k: "afaire", label: "À faire", statuts: ["saisi", "a_recuperer", "recupere", "replanifie"] },
   { k: "route", label: "En route", statuts: ["en_livraison"] },
   { k: "fini", label: "Terminés", statuts: ["livre", "non_trouve", "signalement"] },
 ] as const;
@@ -20,7 +20,7 @@ export default function MesDossiers() {
 
   const load = useCallback(async () => {
     const { data } = await sb("go").from("dossiers_vue").select("*")
-      .or(`statut.in.(a_recuperer,recupere,replanifie,en_livraison),updated_at.gte.${debutJourISO()}`)
+      .or(`statut.in.(saisi,a_recuperer,recupere,replanifie,en_livraison),updated_at.gte.${debutJourISO()}`)
       .order("created_at", { ascending: true });
     setRows((data as DossierVue[]) ?? []);
   }, []);

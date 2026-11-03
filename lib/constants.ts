@@ -1,7 +1,9 @@
 export type Statut =
-  | "a_recuperer" | "recupere" | "en_livraison" | "livre" | "non_trouve" | "replanifie" | "signalement";
+  | "saisi" | "valise_arrivee" | "a_recuperer" | "recupere" | "en_livraison" | "livre" | "non_trouve" | "replanifie" | "signalement";
 
 export const STATUTS: Record<Statut, { label: string; couleur: string; bg: string; text: string; dot: string }> = {
+  saisi:          { label: "Dossier saisi",  couleur: "#0EA5E9", bg: "bg-sky-100",    text: "text-sky-800",    dot: "bg-sky-500" },
+  valise_arrivee: { label: "Valise arrivée", couleur: "#14B8A6", bg: "bg-teal-100",   text: "text-teal-800",   dot: "bg-teal-500" },
   a_recuperer:  { label: "À récupérer",  couleur: "#EAB308", bg: "bg-yellow-100", text: "text-yellow-800", dot: "bg-yellow-400" },
   recupere:     { label: "Récupéré",     couleur: "#3B82F6", bg: "bg-blue-100",   text: "text-blue-800",   dot: "bg-blue-500" },
   en_livraison: { label: "En livraison", couleur: "#F97316", bg: "bg-orange-100", text: "text-orange-800", dot: "bg-orange-500" },
@@ -10,8 +12,9 @@ export const STATUTS: Record<Statut, { label: string; couleur: string; bg: strin
   replanifie:   { label: "Replanifié",   couleur: "#A855F7", bg: "bg-purple-100", text: "text-purple-800", dot: "bg-purple-500" },
   signalement:  { label: "Signalement",  couleur: "#6B7280", bg: "bg-gray-200",   text: "text-gray-800",   dot: "bg-gray-500" },
 };
-export const STATUTS_ORDRE = Object.keys(STATUTS) as Statut[];
-export const STATUTS_ACTIFS: Statut[] = ["a_recuperer", "recupere", "en_livraison", "replanifie", "signalement"];
+/** Statuts qu'on peut choisir (valise_arrivee = étape de chronologie, pas un état durable) */
+export const STATUTS_ORDRE = (Object.keys(STATUTS) as Statut[]).filter((s) => s !== "valise_arrivee");
+export const STATUTS_ACTIFS: Statut[] = ["saisi", "a_recuperer", "recupere", "en_livraison", "replanifie", "signalement"];
 
 export const TIMER_LIVRAISON_MS = 60 * 60 * 1000;
 
@@ -32,6 +35,8 @@ export const QUARTIERS: Record<string, string[]> = {
 };
 
 export const MESSAGES_WHATSAPP: Partial<Record<Statut, string>> = {
+  a_recuperer:
+    "Bonjour {nom_client}, votre valise (dossier {numero_dossier}) est arrivée à Djibouti. Notre livreur va la récupérer et vous la livrer très vite.",
   recupere:
     "Bonjour {nom_client}, votre colis référence {numero_dossier} a été récupéré. Vagabox Services vous contactera pour la livraison.",
   en_livraison:

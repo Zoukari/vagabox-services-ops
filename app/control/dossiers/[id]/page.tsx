@@ -12,6 +12,7 @@ import StatusTimeline from "@/components/StatusTimeline";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import PhotoUpload from "@/components/PhotoUpload";
 import Timer from "@/components/Timer";
+import ConfirmerArrivee from "@/components/ConfirmerArrivee";
 
 export default function DossierDetail() {
   const { id } = useParams<{ id: string }>();
@@ -66,6 +67,12 @@ export default function DossierDetail() {
 
       <div className="grid gap-5 lg:grid-cols-3">
         <div className="space-y-5 lg:col-span-2">
+          {d.statut === "saisi" && (
+            <div className="rounded-2xl border border-sky-200 bg-sky-50 p-4 dark:border-white/10">
+              <p className="mb-3 text-sm font-semibold text-sky-800">Dossier saisi — en attente de l&apos;arrivée de la valise à l&apos;aéroport.</p>
+              <ConfirmerArrivee app="control" dossierId={d.id} nb={d.nb_valises} onDone={() => { load(); setRefresh((r) => r + 1); }} />
+            </div>
+          )}
           <Card className="grid gap-4 p-5 sm:grid-cols-2">
             <Info label="Client" value={nomComplet(d.client_nom, d.client_prenom)} sub={d.client_telephone} />
             <Info label="Adresse" value={d.quartier ?? "—"} sub={d.client_adresse ?? undefined} />
@@ -87,7 +94,7 @@ export default function DossierDetail() {
           <div>
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-ink/60">Message client</h2>
             <WhatsAppButton dossier={d} />
-            {!["recupere", "en_livraison", "livre", "non_trouve", "replanifie"].includes(d.statut) &&
+            {!["a_recuperer", "recupere", "en_livraison", "livre", "non_trouve", "replanifie"].includes(d.statut) &&
               <p className="text-sm text-ink/50">Pas de message prévu pour ce statut.</p>}
           </div>
         </div>
